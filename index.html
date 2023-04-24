@@ -171,7 +171,7 @@
               <label class="input-group-text" for="slayerAreaNegation">Slayer Area Negation</label>
             </div>
             <input id="slayerAreaNegation" type="number" class="form-control" min="0" value="100" step="5"
-              v-model="slayerAreaNegation"/>
+              v-model="slayerAreaNegation" />
           </div>
         </div>
       </div>
@@ -289,7 +289,9 @@
               <option>Necromancers Palace</option>
             </select> -->
             <select class="custom-select" id="dungeonChoice" v-model="dungeonChoice">
-              <option v-for="calculatedDungeon in this.dungeons.map(function (dungeon){ return calculateInstance(dungeon, false); })">{{calculatedDungeon.name}}</option>
+              <option
+                v-for="calculatedDungeon in this.dungeons.map(function (dungeon){ return calculateInstance(dungeon, false); })">
+                {{calculatedDungeon.name}}</option>
             </select>
           </div>
           <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
@@ -528,10 +530,10 @@
 <script src="./DataImportTools/Exported_Data/Exported_Data_TotH/slayerAreaData.js"></script>
 
 <script type="module">
-  import dungeonData from "./DataImportTools/Exported_Data/Exported_Data_TotH/dungeonData.js"
-  import combatAreaData from "./DataImportTools/Exported_Data/Exported_Data_TotH/combatAreaData.js"
-  import slayerAreaData from "./DataImportTools/Exported_Data/Exported_Data_TotH/slayerAreaData.js"
-  import slayerTaskData from "./DataImportTools/Exported_Data/Exported_Data_TotH/slayerTaskData.js"
+  import { dungeonData } from "./DataImportTools/Exported_Data/Exported_Data_TotH/dungeonData.js"
+  import { combatAreaData } from "./DataImportTools/Exported_Data/Exported_Data_TotH/combatAreaData.js"
+  import { slayerAreaData } from "./DataImportTools/Exported_Data/Exported_Data_TotH/slayerAreaData.js"
+  import { slayerTaskData } from "./DataImportTools/Exported_Data/Exported_Data_TotH/slayerTaskData.js"
   // import dungeonData from "./DataImportTools/Exported_Data/Exported_Data_TotH/dungeonData.js"
   let app = new Vue({
     el: '#app',
