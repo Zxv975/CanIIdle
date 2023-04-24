@@ -485,19 +485,24 @@
     $('[data-toggle="tooltip"]').tooltip();
   });
 </script>
-
+<!-- 
 <script src="/DataImportTools/ExportedData/ExportedDataTotH/dungeonData.json"></script>
 <script src="/DataImportTools/ExportedData/ExportedDataTotH/monsterData.json"></script>
-<script src="/DataImportTools/ExportedData/ExportedDataTotH/slayerData.json"></script>
+<script src="/DataImportTools/ExportedData/ExportedDataTotH/slayerData.json"></script> -->
 
 <script type="module">
+  let folderPath = './DataImportTools/ExportedData/ExportedDataTotH/'
+  let dungeonData = require(`${folderPath}dungeonData.json`)
+  let monsterData = require(`${folderPath}monsterData.json`)
+  let slayerData = require(`${folderPath}slayerData.json`)
   // let folderPath = './DataImportTools/ExportedData/ExportedDataTotH/'
   // import dungeonData from `${folderPath}dungeonData.json`
   // import monsterData from `${folderPath}monsterData.json`
   // import slayerData from `${folderPath}slayerData.json`
-  import dungeonData from './dungeonData.json'
-  import monsterData from './monsterData.json'
-  import slayerData from './slayerData.json'
+  // import dungeonData from './dungeonData.json'
+  // import monsterData from './monsterData.json'
+  // import slayerData from './slayerData.json'
+
   app = new Vue({
     el: '#app',
     data() {

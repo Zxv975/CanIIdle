@@ -1,0 +1,19 @@
+{
+  "name": "caniidle",
+  "version": "1.0.0",
+  "description": "Updated version of Can I Idle for TotH",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zxv975/CanIIdle.git"
+  },
+  "author": "Bryte Hagan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zxv975/CanIIdle/issues"
+  },
+  "homepage": "https://github.com/Zxv975/CanIIdle#readme"
+}
