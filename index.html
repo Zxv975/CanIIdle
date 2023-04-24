@@ -285,6 +285,7 @@
               <tr>
                 <th class="align-middle" style="width: 20%" scope="col">Monster Name</th>
                 <th class="align-middle" style="width: 11%" scope="col">Style</th>
+                <th class="align-middle" style="width: 11%" scope="col">Intimidation</th>
                 <th class="align-middle" style="width: 11%" scope="col">Attack Name</th>
                 <th class="align-middle" style="width: 11%" scope="col">Max Hit</th>
                 <th class="align-middle" style="width: 11%" scope="col">Reduced Max hit</th>
@@ -312,6 +313,7 @@
                       title="This monster can stun or freeze you for +30% damage.">
                   </td>
                   <td>{{monster.attackStyle}}</td>
+                  <td>{{monster.intimidation}}</td>
                   <td></td>
                   <td>{{monster.maxHit}}</td>
                   <td>{{monster.reducedMaxHit}}</td>
@@ -319,6 +321,7 @@
                   <td>{{monster.minimumHP}} HP for {{currentDR}} DR%</td>
                 </tr>
                 <tr v-for="attack in monster.attacks" :class="{idleable : attack.isIdleable}">
+                  <td></td>
                   <td></td>
                   <td></td>
                   <td>{{attack.name}}</td>
@@ -348,6 +351,7 @@
               <tr>
                 <th class="align-middle" style="width: 20%" scope="col">Monster Name</th>
                 <th class="align-middle" style="width: 11%" scope="col">Style</th>
+                <th class="align-middle" style="width: 11%" scope="col">Intimidation</th>
                 <th class="align-middle" style="width: 11%" scope="col">Attack Name</th>
                 <th class="align-middle" style="width: 11%" scope="col">Max Hit</th>
                 <th class="align-middle" style="width: 11%" scope="col">Reduced Max hit</th>
@@ -375,6 +379,7 @@
                       title="This monster can stun or freeze you for +30% damage.">
                   </td>
                   <td>{{monster.attackStyle}}</td>
+                  <td>{{monster.intimidation}}</td>
                   <td></td>
                   <td>{{monster.maxHit}}</td>
                   <td>{{monster.reducedMaxHit}}</td>
@@ -382,6 +387,7 @@
                   <td>{{monster.minimumHP}} HP for {{currentDR}} DR%</td>
                 </tr>
                 <tr v-for="attack in monster.attacks" :class="{idleable : attack.isIdleable}">
+                  <td></td>
                   <td></td>
                   <td></td>
                   <td>{{attack.name}}</td>
@@ -411,6 +417,7 @@
               <tr>
                 <th class="align-middle" style="width: 20%" scope="col">Monster Name</th>
                 <th class="align-middle" style="width: 11%" scope="col">Style</th>
+                <th class="align-middle" style="width: 11%" scope="col">Intimidation</th>
                 <th class="align-middle" style="width: 11%" scope="col">Attack Name</th>
                 <th class="align-middle" style="width: 11%" scope="col">Max Hit</th>
                 <th class="align-middle" style="width: 11%" scope="col">Reduced Max hit</th>
@@ -438,6 +445,7 @@
                       title="This monster can stun or freeze you for +30% damage.">
                   </td>
                   <td>{{monster.attackStyle}}</td>
+                  <td>{{monster.intimidation}}</td>
                   <td></td>
                   <td>{{monster.maxHit}}</td>
                   <td>{{monster.reducedMaxHit}}</td>
@@ -445,6 +453,7 @@
                   <td>{{monster.minimumHP}} HP for {{currentDR}} DR%</td>
                 </tr>
                 <tr v-for="attack in monster.attacks" :class="{idleable : attack.isIdleable}">
+                  <td></td>
                   <td></td>
                   <td></td>
                   <td>{{attack.name}}</td>
@@ -468,13 +477,6 @@
               <option
                 v-for="calculatedTier in this.slayerTiers.map(function (tier){ return calculateInstance(tier, true); })">
                 {{calculatedTier.name}}</option>
-              <!-- <option>Easy</option>
-              <option>Normal</option>
-              <option>Hard</option>
-              <option>Elite</option>
-              <option>Master</option>
-              <option>Legendary</option>
-              <option>Mythical</option> -->
             </select>
           </div>
           <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
@@ -482,6 +484,7 @@
               <tr>
                 <th class="align-middle" style="width: 20%" scope="col">Monster Name</th>
                 <th class="align-middle" style="width: 11%" scope="col">Style</th>
+                <th class="align-middle" style="width: 11%" scope="col">Intimidation</th>
                 <th class="align-middle" style="width: 11%" scope="col">Attack Name</th>
                 <th class="align-middle" style="width: 11%" scope="col">Max Hit</th>
                 <th class="align-middle" style="width: 11%" scope="col">Reduced Max hit</th>
@@ -517,6 +520,7 @@
                       src="assets/warning.png" title="Unable to determine with certainty due to affliction.">
                   </td>
                   <td>{{monster.attackStyle}}</td>
+                  <td>{{monster.intimidation}}</td>
                   <td></td>
                   <td>{{monster.maxHit}}</td>
                   <td>{{monster.reducedMaxHit}}</td>
@@ -525,6 +529,7 @@
                 </tr>
                 <tr v-for="attack in monster.attacks"
                   :class="{idleable : attack.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' || monster.name == 'Greater Skeletal Dragon')}">
+                  <td></td>
                   <td></td>
                   <td></td>
                   <td>{{attack.name}}</td>
@@ -544,6 +549,7 @@
               <tr>
                 <th class="align-middle" style="width: 20%" scope="col">Monster Name</th>
                 <th class="align-middle" style="width: 11%" scope="col">Style</th>
+                <th class="align-middle" style="width: 11%" scope="col">Intimidation</th>
                 <th class="align-middle" style="width: 11%" scope="col">Attack Name</th>
                 <th class="align-middle" style="width: 11%" scope="col">Max Hit</th>
                 <th class="align-middle" style="width: 11%" scope="col">Reduced Max hit</th>
@@ -579,6 +585,7 @@
                       src="assets/warning.png" title="Unable to determine with certainty due to affliction.">
                   </td>
                   <td>{{monster.attackStyle}}</td>
+                  <td>{{monster.intimidation}}</td>
                   <td></td>
                   <td>{{monster.maxHit}}</td>
                   <td>{{monster.reducedMaxHit}}</td>
@@ -587,6 +594,7 @@
                 </tr>
                 <tr v-for="attack in monster.attacks"
                   :class="{idleable : attack.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' || monster.name == 'Greater Skeletal Dragon')}">
+                  <td></td>
                   <td></td>
                   <td></td>
                   <td>{{attack.name}}</td>
