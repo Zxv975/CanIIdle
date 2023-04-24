@@ -1,0 +1,230 @@
+'[
+    {
+        "name": "Chicken Coop",
+        "monsters": [
+            "Chicken",
+            "Chick",
+            "Mumma Chicken"
+        ]
+    },
+    {
+        "name": "Undead Graveyard",
+        "monsters": [
+            "Zombie Hand",
+            "Zombie",
+            "Ghost",
+            "Zombie Leader"
+        ]
+    },
+    {
+        "name": "Spider Forest",
+        "monsters": [
+            "Spider",
+            "Brown Spider",
+            "Evil Spider",
+            "Spider King"
+        ]
+    },
+    {
+        "name": "Frozen Cove",
+        "monsters": [
+            "Ice Monster",
+            "Ice Troll",
+            "Ice",
+            "Protector of Ice"
+        ]
+    },
+    {
+        "name": "Deep Sea Ship",
+        "monsters": [
+            "Pirate",
+            "First Mate",
+            "Pirate Captain",
+            "The Kraken"
+        ]
+    },
+    {
+        "name": "Volcanic Cave",
+        "monsters": [
+            "Bat",
+            "Big Bat",
+            "The Eye",
+            "Resurrected Eye",
+            "Vicious Serpent",
+            "Fire Spirit",
+            "Prat, the Protector of Secrets",
+            "Malcs, the Guardian of Melvor"
+        ]
+    },
+    {
+        "name": "Bandit Base",
+        "monsters": [
+            "Bandit Trainee",
+            "Bandit",
+            "Bandit Leader"
+        ]
+    },
+    {
+        "name": "Hall of Wizards",
+        "monsters": [
+            "Wizard",
+            "Master Wizard",
+            "Dark Wizard",
+            "Elder Wizard"
+        ]
+    },
+    {
+        "name": "Air God Dungeon",
+        "monsters": [
+            "Air Guard",
+            "Air Monster",
+            "Air Golem",
+            "Aleron",
+            "Voltaire",
+            "Aeris"
+        ]
+    },
+    {
+        "name": "Water God Dungeon",
+        "monsters": [
+            "Water Guard",
+            "Water Monster",
+            "Water Golem",
+            "Lissia",
+            "Murtia",
+            "Glacia"
+        ]
+    },
+    {
+        "name": "Earth God Dungeon",
+        "monsters": [
+            "Earth Guard",
+            "Earth Monster",
+            "Earth Golem",
+            "Mistral",
+            "Ophidia",
+            "Terran"
+        ]
+    },
+    {
+        "name": "Fire God Dungeon",
+        "monsters": [
+            "Fire Guard",
+            "Fire Monster",
+            "Fire Golem",
+            "Pyra",
+            "Ignis",
+            "Ragnar"
+        ]
+    },
+    {
+        "name": "Dragons Den",
+        "monsters": [
+            "Green Dragon",
+            "Blue Dragon",
+            "Red Dragon",
+            "Black Dragon",
+            "Elder Dragon"
+        ]
+    },
+    {
+        "name": "Miolite Caves",
+        "monsters": [
+            "Miolite Sprig",
+            "Miolite Trio",
+            "Miolite Warden",
+            "Miolite Monarch"
+        ]
+    },
+    {
+        "name": "Infernal Stronghold",
+        "monsters": [
+            "Cerberus",
+            "Fearful Eye",
+            "Red Devil",
+            "Phoenix",
+            "Incendius",
+            "Prat, the Guardian of Secrets",
+            "Malcs, the Leader of Dragons"
+        ]
+    },
+    {
+        "name": "Into the Mist",
+        "monsters": [
+            "UNDEFINED TRANSLATION: :MONSTER_NAME_RandomITM",
+            "Mysterious Figure - Phase 1",
+            "Mysterious Figure - Phase 2",
+            "Ahrenia"
+        ]
+    },
+    {
+        "name": "Impending Darkness Event",
+        "monsters": [
+            "Bane, Instrument of Fear"
+        ]
+    },
+    {
+        "name": "Ancient Sanctuary",
+        "monsters": [
+            "Hungry Plant",
+            "Poison Toad",
+            "Kongamato",
+            "Conda",
+            "Alraune",
+            "Morellia"
+        ]
+    },
+    {
+        "name": "Underground Lava Lake",
+        "monsters": [
+            "Burning Snake",
+            "Infernal Golem",
+            "Magic Fire Demon",
+            "Manticore",
+            "Gret-Yun",
+            "Trogark"
+        ]
+    },
+    {
+        "name": "Lightning Region",
+        "monsters": [
+            "Lightning Spirit",
+            "Lightning Monkey",
+            "Lightning Golem",
+            "RaZu, Lord of the Skies"
+        ]
+    },
+    {
+        "name": "Lair of the Spider Queen",
+        "monsters": [
+            "UNDEFINED TRANSLATION: :MONSTER_NAME_RandomSpiderLair",
+            "Spider Queen"
+        ]
+    },
+    {
+        "name": "Cursed Forest",
+        "monsters": [
+            "Tree Giant",
+            "Tree Spirit",
+            "Cursed Spirit",
+            "Lady Darkheart"
+        ]
+    },
+    {
+        "name": "Necromancers Palace",
+        "monsters": [
+            "Cursed Skeleton Warrior",
+            "Bel-Noth",
+            "Dark Knight",
+            "Fiozor, the Ancient Necromancer"
+        ]
+    },
+    {
+        "name": "Throne of the Herald",
+        "monsters": [
+            "The Herald Phase 1",
+            "The Herald Phase 2",
+            "The Herald"
+        ]
+    }
+]'

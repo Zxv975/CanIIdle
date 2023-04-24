@@ -111,44 +111,80 @@ let monsterMap = game.monsters
 	});
 monsterMap;
 
-let easySlayer = game.monsters.filter((monster, id) => {
-	const combatLevel = monster.combatLevel;
-	return (monster.canSlayer && combatLevel >= SlayerTask.data[0].minLevel && combatLevel <= SlayerTask.data[0].maxLevel);
-}).map(x => { return x.name });
-easySlayer;
+// let easySlayer = game.monsters.filter((monster, id) => {
+// 	const combatLevel = monster.combatLevel;
+// 	return (monster.canSlayer && combatLevel >= SlayerTask.data[0].minLevel && combatLevel <= SlayerTask.data[0].maxLevel);
+// }).map(x => { return x.name });
+// easySlayer;
 
-let normalSlayer = game.monsters.filter((monster, id) => {
-	const combatLevel = monster.combatLevel;
-	return (monster.canSlayer && combatLevel >= SlayerTask.data[1].minLevel && combatLevel <= SlayerTask.data[1].maxLevel);
-}).map(x => { return x.name });
-normalSlayer;
+// let normalSlayer = game.monsters.filter((monster, id) => {
+// 	const combatLevel = monster.combatLevel;
+// 	return (monster.canSlayer && combatLevel >= SlayerTask.data[1].minLevel && combatLevel <= SlayerTask.data[1].maxLevel);
+// }).map(x => { return x.name });
+// normalSlayer;
 
-let hardSlayer = game.monsters.filter((monster, id) => {
-	const combatLevel = monster.combatLevel;
-	return (monster.canSlayer && combatLevel >= SlayerTask.data[2].minLevel && combatLevel <= SlayerTask.data[2].maxLevel);
-}).map(x => { return x.name });
-hardSlayer;
+// let hardSlayer = game.monsters.filter((monster, id) => {
+// 	const combatLevel = monster.combatLevel;
+// 	return (monster.canSlayer && combatLevel >= SlayerTask.data[2].minLevel && combatLevel <= SlayerTask.data[2].maxLevel);
+// }).map(x => { return x.name });
+// hardSlayer;
 
-let eliteSlayer = game.monsters.filter((monster, id) => {
-	const combatLevel = monster.combatLevel;
-	return (monster.canSlayer && combatLevel >= SlayerTask.data[3].minLevel && combatLevel <= SlayerTask.data[3].maxLevel);
-}).map(x => { return x.name });
-eliteSlayer;
+// let eliteSlayer = game.monsters.filter((monster, id) => {
+// 	const combatLevel = monster.combatLevel;
+// 	return (monster.canSlayer && combatLevel >= SlayerTask.data[3].minLevel && combatLevel <= SlayerTask.data[3].maxLevel);
+// }).map(x => { return x.name });
+// eliteSlayer;
 
-let masterSlayer = game.monsters.filter((monster, id) => {
-	const combatLevel = monster.combatLevel;
-	return (monster.canSlayer && combatLevel >= SlayerTask.data[4].minLevel && combatLevel <= SlayerTask.data[4].maxLevel);
-}).map(x => { return x.name });
-masterSlayer;
+// let masterSlayer = game.monsters.filter((monster, id) => {
+// 	const combatLevel = monster.combatLevel;
+// 	return (monster.canSlayer && combatLevel >= SlayerTask.data[4].minLevel && combatLevel <= SlayerTask.data[4].maxLevel);
+// }).map(x => { return x.name });
+// masterSlayer;
 
-let legendarySlayer = game.monsters.filter((monster, id) => {
-	const combatLevel = monster.combatLevel;
-	return (monster.canSlayer && combatLevel >= SlayerTask.data[5].minLevel && combatLevel <= SlayerTask.data[5].maxLevel);
-}).map(x => { return x.name });
-legendarySlayer;
+// let legendarySlayer = game.monsters.filter((monster, id) => {
+// 	const combatLevel = monster.combatLevel;
+// 	return (monster.canSlayer && combatLevel >= SlayerTask.data[5].minLevel && combatLevel <= SlayerTask.data[5].maxLevel);
+// }).map(x => { return x.name });
+// legendarySlayer;
 
-let mythicalSlayer = game.monsters.filter((monster, id) => {
-	const combatLevel = monster.combatLevel;
-	return (monster.canSlayer && combatLevel >= SlayerTask.data[6].minLevel && combatLevel <= SlayerTask.data[6].maxLevel);
-}).map(x => { return x.name });
-mythicalSlayer;
+// let mythicalSlayer = game.monsters.filter((monster, id) => {
+// 	const combatLevel = monster.combatLevel;
+// 	return (monster.canSlayer && combatLevel >= SlayerTask.data[6].minLevel && combatLevel <= SlayerTask.data[6].maxLevel);
+// }).map(x => { return x.name });
+// mythicalSlayer;
+
+// slayerTiers = [
+// 	"easy",
+// 	"normal",
+// 	"hard",
+// 	"elite",
+// 	"master",
+// 	"legendary",
+// 	"mythical"
+// ]
+
+// let slayerTaskList = {}
+// SlayerTask.data.forEach((tier, tierID) => slayerTaskList[tier.engDisplay] = game.monsters.filter(monster => {
+// 	const combatLevel = monster.combatLevel;
+// 	return (monster.canSlayer && combatLevel >= SlayerTask.data[tierID].minLevel && combatLevel <= SlayerTask.data[tierID].maxLevel);
+// }).map(x => { return x.name })
+// ) // Object which returns all monsters in a given slayer tier. Grabs slayer task tiers automatically
+
+// let dungeonList = {}
+// game.dungeons.forEach(dungeon => dungeonList[dungeon.name] = [...new Set(dungeon.monsters.map(monster => monster.name))]) 
+
+let slayerTaskList = []
+SlayerTask.data.forEach((tier, tierID) => {
+	let monstersInTier = game.monsters.filter(monster => {
+		const combatLevel = monster.combatLevel;
+		return (monster.canSlayer && combatLevel >= SlayerTask.data[tierID].minLevel && combatLevel <= SlayerTask.data[tierID].maxLevel);
+	}).map(x => { return x.name })
+	slayerTaskList.push({ name: tier.engDisplay, monsters: monstersInTier})
+}) // Array for all slayer task monsters
+
+let dungeonList = []
+game.dungeons.forEach(dungeon => dungeonList.push({ name: dungeon.name, monsters: [...new Set(dungeon.monsters.map(monster => monster.name))] })) // Grab all dungeon monsters, removing duplicates with Set
+
+JSON.stringify(slayerTaskList)
+JSON.stringify(dungeonList)
+JSON.stringify(monsterMap)
