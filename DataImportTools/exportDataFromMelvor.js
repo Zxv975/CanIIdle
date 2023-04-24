@@ -197,7 +197,7 @@ const bannedDungeons = [
 	"melvorTotH:Lair_of_the_Spider_Queen", // Handle this one separately because of the randomness
 	"melvorTotH:Throne_of_the_Herald",
 ]
-game.dungeons.forEach(dungeon => {
+game.dungeonDisplayOrder.forEach(dungeon => {
 	if (!bannedDungeons.includes(dungeon.id))
 		dungeonList.push({ name: dungeon.name, monsters: [...new Set(dungeon.monsters.map(monster => monster.name))] })
 }) // Grab all dungeon monsters, removing duplicates with Set
@@ -215,14 +215,14 @@ let combatAreaList = []
 const bannedCombatAreas = [
 	"melvorD:UnknownArea"
 ]
-game.combatAreas.forEach(area => {
+game.combatAreaDisplayOrder.forEach(area => {
 	if (!bannedCombatAreas.includes(area.id))
 		combatAreaList.push({ name: area.name, monsters: [...new Set(area.monsters.map(monster => monster.name))] })
 })
 
 let slayerAreaList = []
 const bannedSlayerAreas = []
-game.slayerAreas.forEach(area => {
+game.slayerAreaDisplayOrder.forEach(area => {
 	if (!bannedSlayerAreas.includes(area.id))
 		slayerAreaList.push({ name: area.name, monsters: [...new Set(area.monsters.map(monster => monster.name))] })
 })
