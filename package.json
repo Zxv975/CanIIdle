@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Zxv975/CanIIdle/issues"
   },
-  "homepage": "https://github.com/Zxv975/CanIIdle#readme"
+  "homepage": "https://github.com/Zxv975/CanIIdle#readme",
+  "dependencies": {
+    "requirejs": "^2.3.6"
+  }
 }
