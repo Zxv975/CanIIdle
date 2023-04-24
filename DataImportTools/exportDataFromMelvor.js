@@ -209,7 +209,7 @@ const spiderIDs = [
 	"melvorTotH:EnforcerSpider",
 	"melvorTotH:GuardianSpider"
 ]
-dungeonList.push({ name: "Lair of the Spider Queen", monsters: [...new Set(game.monsters.filter(monster => spiderIDs.includes(monster.id)))] }) // Handle this one separately because of the randomness
+dungeonList.splice(18, 0, { name: "Lair of the Spider Queen", monsters: [...new Set(game.monsters.filter(monster => spiderIDs.includes(monster.id)))] }) // Handle this one separately because of the randomness
 
 let combatAreaList = []
 const bannedCombatAreas = [
