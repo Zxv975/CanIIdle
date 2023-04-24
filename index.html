@@ -526,7 +526,7 @@
 <script src="./DataImportTools/Exported_Data/Exported_Data_TotH/dungeonData.js"></script>
 <script src="./DataImportTools/Exported_Data/Exported_Data_TotH/combatAreaData.js"></script>
 <script src="./DataImportTools/Exported_Data/Exported_Data_TotH/slayerTaskData.js"></script>
-<!-- <script src="./DataImportTools/Exported_Data/Exported_Data_TotH/combatAreaData.js"></script> -->
+<script src="./DataImportTools/Exported_Data/Exported_Data_TotH/monsterData.js"></script>
 <script src="./DataImportTools/Exported_Data/Exported_Data_TotH/slayerAreaData.js"></script>
 
 <script type="module">
@@ -534,7 +534,7 @@
   import { combatAreaData } from "./DataImportTools/Exported_Data/Exported_Data_TotH/combatAreaData.js"
   import { slayerAreaData } from "./DataImportTools/Exported_Data/Exported_Data_TotH/slayerAreaData.js"
   import { slayerTaskData } from "./DataImportTools/Exported_Data/Exported_Data_TotH/slayerTaskData.js"
-  // import dungeonData from "./DataImportTools/Exported_Data/Exported_Data_TotH/dungeonData.js"
+  import { monsterData } from "./DataImportTools/Exported_Data/Exported_Data_TotH/monsterData.js"
   let app = new Vue({
     el: '#app',
     data() {
@@ -552,7 +552,7 @@
         slayerTier: "Easy",
         slayerAreaNegation: 0,
         dungeons: dungeonData,
-        monsters: combatAreaData,
+        monsters: monsterData,
         slayerTiers: slayerTaskData,
         slayerAreas: slayerAreaData,
         combatAreas: combatAreaData
