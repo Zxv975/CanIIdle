@@ -183,6 +183,16 @@
           </a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#combatAreas">
+            <h3 class="mb-0">Combat Areas</h3>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#slayerAreas">
+            <h3 class="mb-0">Slayer Areas</h3>
+          </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#dungeons">
             <h3 class="mb-0">Dungeons</h3>
           </a>
@@ -197,16 +207,6 @@
             <h3 class="mb-0">All Monsters</h3>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#combatAreas">
-            <h3 class="mb-0">Combat Areas</h3>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#slayerAreas">
-            <h3 class="mb-0">Slayer Areas</h3>
-          </a>
-        </li>
       </ul>
       <div class="tab-content">
         <div id="overview" class="tab-pane fade show active">
@@ -217,7 +217,7 @@
                 <th class="align-middle" style="width: 20%" scope="col">Dungeon Name</th>
                 <th class="align-middle" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
-                    title="Total DR% you need equipt to safely idle this monster with your currently set HP">
+                    title="Total DR% you need equipped to safely idle this monster with your currently set HP">
                     <u>DR% Needed</u>
                   </div>
                 </th>
@@ -246,7 +246,7 @@
                 <th class="align-middle" style="width: 20%" scope="col">Slayer Tier</th>
                 <th class="align-middle" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
-                    title="Total DR% you need equipt to safely idle this monster with your currently set HP">
+                    title="Total DR% you need equipped to safely idle this monster with your currently set HP">
                     <u>DR% Needed</u>
                   </div>
                 </th>
@@ -269,35 +269,74 @@
             </tbody>
           </table>
         </div>
+        <div id="combatAreas" class="tab-pane fade">
+          <div class="input-group my-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="combatChoice">Dungeon:</label>
+            </div>
+            <select class="custom-select" id="combatChoice" v-model="combatChoice">
+              <option
+                v-for="calculatedCombat in this.combatAreas.map(function (combatArea){ return calculateInstance(combatArea, false); })">
+                {{calculatedCombat.name}}</option>
+            </select>
+          </div>
+          <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
+            <thead>
+              <tr>
+                <th class="align-middle" style="width: 20%" scope="col">Monster Name</th>
+                <th class="align-middle" style="width: 11%" scope="col">Style</th>
+                <th class="align-middle" style="width: 11%" scope="col">Attack Name</th>
+                <th class="align-middle" style="width: 11%" scope="col">Max Hit</th>
+                <th class="align-middle" style="width: 11%" scope="col">Reduced Max hit</th>
+                <th class="align-middle" style="width: 11%" scope="col">
+                  <div data-toggle="tooltip" data-placement="top"
+                    title="Total DR% you need equipped to safely idle this monster with your currently set HP">
+                    <u>DR% Needed</u>
+                  </div>
+                </th>
+                <th class="align-middle" style="width: 11%" scope="col">
+                  <div data-toggle="tooltip" data-placement="top"
+                    title="Total HP you need to safely idle this monster with your currently set DR%">
+                    <u>HP Needed</u>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <template v-for="monster in findMonstersForCombatArea(this.combatChoice)">
+                <tr :class="{idleable : monster.isIdleable}">
+                  <td>{{monster.name}}
+                    <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}" src="assets/sleep.png"
+                      title="Monster is able to sleep">
+                    <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}" src="assets/stun.png"
+                      title="Monster is able to stun">
+                  </td>
+                  <td>{{monster.attackStyle}}</td>
+                  <td></td>
+                  <td>{{monster.maxHit}}</td>
+                  <td>{{monster.reducedMaxHit}}</td>
+                  <td>{{monster.minimumDR}} DR% for {{totalHealth}} HP</td>
+                  <td>{{monster.minimumHP}} HP for {{currentDR}} DR%</td>
+                </tr>
+                <tr v-for="attack in monster.attacks" :class="{idleable : attack.isIdleable}">
+                  <td></td>
+                  <td></td>
+                  <td>{{attack.name}}</td>
+                  <td>{{attack.maxHit}}</td>
+                  <td>{{attack.reducedMaxHit}}</td>
+                  <td>{{attack.minimumDR}} DR% for {{totalHealth}} HP</td>
+                  <td>{{attack.minimumHP}} HP for {{currentDR}} DR%</td>
+                </tr>
+                <br>
+              </template>
+            </tbody>
+          </table>
+        </div>
         <div id="dungeons" class="tab-pane fade">
           <div class="input-group my-3">
             <div class="input-group-prepend">
               <label class="input-group-text" for="dungeonChoice">Dungeon:</label>
             </div>
-            <!-- <select class="custom-select" id="dungeonChoice" v-model="dungeonChoice">
-              <option selected hidden>Choose Dungeon</option>
-              <option>Chicken Coop</option>
-              <option>Undead Graveyard</option>
-              <option>Bandit Base</option>
-              <option>Hall of Wizards</option>
-              <option>Spider Forest</option>
-              <option>Miolite Caves</option>
-              <option>Deep Sea Ship</option>
-              <option>Frozen Cove</option>
-              <option>Dragons Den</option>
-              <option>Volcanic Cave</option>
-              <option>Infernal Stronghold</option>
-              <option>Air God Dungeon</option>
-              <option>Water God Dungeon</option>
-              <option>Earth God Dungeon</option>
-              <option>Fire God Dungeon</option>
-              <option>Ancient Sanctuary</option>
-              <option>Underground Lava Lake</option>
-              <option>Lightning Region</option>
-              <option>Lair of the Spider Queen</option>
-              <option>Cursed Forest</option>
-              <option>Necromancers Palace</option>
-            </select> -->
             <select class="custom-select" id="dungeonChoice" v-model="dungeonChoice">
               <option
                 v-for="calculatedDungeon in this.dungeons.map(function (dungeon){ return calculateInstance(dungeon, false); })">
@@ -314,7 +353,7 @@
                 <th class="align-middle" style="width: 11%" scope="col">Reduced Max hit</th>
                 <th class="align-middle" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
-                    title="Total DR% you need equipt to safely idle this monster with your currently set HP">
+                    title="Total DR% you need equipped to safely idle this monster with your currently set HP">
                     <u>DR% Needed</u>
                   </div>
                 </th>
@@ -363,7 +402,9 @@
             </div>
             <select class="custom-select" id="slayerTier" v-model="slayerTier">
               <option selected hidden>Choose Tier</option>
-              <option v-for="calculatedTier in this.slayerTiers.map(function (tier){ return calculateInstance(tier, true); })">{{calculatedTier.name}}</option>
+              <option
+                v-for="calculatedTier in this.slayerTiers.map(function (tier){ return calculateInstance(tier, true); })">
+                {{calculatedTier.name}}</option>
               <!-- <option>Easy</option>
               <option>Normal</option>
               <option>Hard</option>
@@ -383,7 +424,7 @@
                 <th class="align-middle" style="width: 11%" scope="col">Reduced Max hit</th>
                 <th class="align-middle" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
-                    title="Total DR% you need equipt to safely idle this monster with your currently set HP">
+                    title="Total DR% you need equipped to safely idle this monster with your currently set HP">
                     <u>DR% Needed</u>
                   </div>
                 </th>
@@ -445,7 +486,7 @@
                 <th class="align-middle" style="width: 11%" scope="col">Reduced Max hit</th>
                 <th class="align-middle" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
-                    title="Total DR% you need equipt to safely idle this monster with your currently set HP">
+                    title="Total DR% you need equipped to safely idle this monster with your currently set HP">
                     <u>DR% Needed</u>
                   </div>
                 </th>
@@ -861,6 +902,26 @@
         let dungeonMonsters = this.monsters.filter(m => dungeonMonstersNames.includes(m.name)).sort((first, second) => dungeonMonstersNames.indexOf(first.name) - dungeonMonstersNames.indexOf(second.name));
         let monsterInformation = [];
         dungeonMonsters.forEach(element => {
+          monsterInformation.push(this.calculateMonster(element, false));
+        });
+        return monsterInformation;
+      },
+
+      findMonsterForCombatAreas(area) {
+        let areaMonstersNames = this.combatAreas.filter(s => s.name == area)[0].monsters;
+        let areaMonsters = this.monsters.filter(m => areaMonstersNames.includes(m.name)).sort((first, second) => areaMonstersNames.indexOf(first.name) - areaMonstersNames.indexOf(second.name));
+        let monsterInformation = [];
+        areaMonsters.forEach(element => {
+          monsterInformation.push(this.calculateMonster(element, false));
+        });
+        return monsterInformation;
+      },
+
+      findMonsterForSlayerreas(area) {
+        let areaMonstersNames = this.slayerAreas.filter(s => s.name == area)[0].monsters;
+        let areaMonsters = this.monsters.filter(m => areaMonstersNames.includes(m.name)).sort((first, second) => areaMonstersNames.indexOf(first.name) - areaMonstersNames.indexOf(second.name));
+        let monsterInformation = [];
+        areaMonsters.forEach(element => {
           monsterInformation.push(this.calculateMonster(element, false));
         });
         return monsterInformation;
