@@ -214,14 +214,14 @@
             class="table table-responsive-md table-striped table-dark table-bordered table-hover">
             <thead>
               <tr>
-                <th class="align-middle" style="width: 20%" scope="col">Dungeon Name</th>
-                <th class="align-middle" style="width: 11%" scope="col">
+                <th class="align-middle text-center" style="width: 20%" scope="col">Dungeon Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
                     title="Total DR% you need equipped to safely idle this monster with your currently set HP">
                     <u>DR% Needed</u>
                   </div>
                 </th>
-                <th class="align-middle" style="width: 11%" scope="col">
+                <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
                     title="Total HP you need to safely idle this monster with your currently set DR%">
                     <u>HP Needed</u>
@@ -233,9 +233,9 @@
               <tr
                 v-for="calculatedDungeon in this.dungeons.map(function (dungeon){ return calculateInstance(dungeon, false); })"
                 :class="{idleable : calculatedDungeon.isIdleable}">
-                <td>{{calculatedDungeon.name}}</td>
-                <td>{{calculatedDungeon.minimumDR}} DR% for {{totalHealth}} HP</td>
-                <td>{{calculatedDungeon.minimumHP}} HP for {{currentDR}} DR%</td>
+                <td class="text-center">{{calculatedDungeon.name}}</td>
+                <td class="text-center">{{calculatedDungeon.minimumDR}} DR% for {{totalHealth}} HP</td>
+                <td class="text-center">{{calculatedDungeon.minimumHP}} HP for {{currentDR}} DR%</td>
               </tr>
             </tbody>
           </table>
@@ -243,14 +243,14 @@
             class="table table-responsive-md table-striped table-dark table-bordered table-hover">
             <thead>
               <tr>
-                <th class="align-middle" style="width: 20%" scope="col">Slayer Tier</th>
-                <th class="align-middle" style="width: 11%" scope="col">
+                <th class="align-middle text-center" style="width: 20%" scope="col">Slayer Tier</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
                     title="Total DR% you need equipped to safely idle this monster with your currently set HP">
                     <u>DR% Needed</u>
                   </div>
                 </th>
-                <th class="align-middle" style="width: 11%" scope="col">
+                <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
                     title="Total HP you need to safely idle this monster with your currently set DR%">
                     <u>HP Needed</u>
@@ -262,9 +262,9 @@
               <tr
                 v-for="calculatedTier in this.slayerTiers.map(function (tier){ return calculateInstance(tier, true); })"
                 :class="{idleable : calculatedTier.isIdleable, warning : calculatedTier.name == 'Master'}">
-                <td>{{calculatedTier.name}}</td>
-                <td>{{calculatedTier.minimumDR}} DR% for {{totalHealth}} HP</td>
-                <td>{{calculatedTier.minimumHP}} HP for {{currentDR}} DR%</td>
+                <td class="text-center">{{calculatedTier.name}}</td>
+                <td class="text-center">{{calculatedTier.minimumDR}} DR% for {{totalHealth}} HP</td>
+                <td class="text-center">{{calculatedTier.minimumHP}} HP for {{currentDR}} DR%</td>
               </tr>
             </tbody>
           </table>
@@ -283,19 +283,19 @@
           <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
             <thead>
               <tr>
-                <th class="align-middle" style="width: 20%" scope="col">Monster Name</th>
-                <th class="align-middle" style="width: 11%" scope="col">Style</th>
-                <th class="align-middle" style="width: 11%" scope="col">Intimidation</th>
-                <th class="align-middle" style="width: 11%" scope="col">Attack Name</th>
-                <th class="align-middle" style="width: 11%" scope="col">Max Hit</th>
-                <th class="align-middle" style="width: 11%" scope="col">Reduced Max hit</th>
-                <th class="align-middle" style="width: 11%" scope="col">
+                <th class="align-middle text-center" style="width: 20%" scope="col">Monster Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Style</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Intimidation</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Attack Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Max Hit</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Reduced Max hit</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
                     title="Total DR% you need equipped to safely idle this monster with your currently set HP">
                     <u>DR% Needed</u>
                   </div>
                 </th>
-                <th class="align-middle" style="width: 11%" scope="col">
+                <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
                     title="Total HP you need to safely idle this monster with your currently set DR%">
                     <u>HP Needed</u>
@@ -306,29 +306,29 @@
             <tbody>
               <template v-for="monster in findMonstersForArea('combatAreas', this.combatChoice)">
                 <tr :class="{idleable : monster.isIdleable}">
-                  <td>{{monster.name}}
+                  <td class="text-center">{{monster.name}}
                     <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}" src="assets/sleep.png"
                       title="This mmonster is able to put you to sleep for +20% damage.">
                     <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}" src="assets/stun.png"
                       title="This monster can stun or freeze you for +30% damage.">
                   </td>
-                  <td>{{monster.attackStyle}}</td>
-                  <td>{{monster.intimidation}}</td>
-                  <td></td>
-                  <td>{{monster.maxHit}}</td>
-                  <td>{{monster.reducedMaxHit}}</td>
-                  <td>{{monster.minimumDR}} DR% for {{totalHealth}} HP</td>
-                  <td>{{monster.minimumHP}} HP for {{currentDR}} DR%</td>
+                  <td class="text-center">{{monster.attackStyle}}</td>
+                  <td class="text-center">{{monster.intimidation}}</td>
+                  <td class="text-center"></td>
+                  <td class="text-center">{{monster.maxHit}}</td>
+                  <td class="text-center">{{monster.reducedMaxHit}}</td>
+                  <td class="text-center">{{monster.minimumDR}} DR% for {{totalHealth}} HP</td>
+                  <td class="text-center">{{monster.minimumHP}} HP for {{currentDR}} DR%</td>
                 </tr>
                 <tr v-for="attack in monster.attacks" :class="{idleable : attack.isIdleable}">
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>{{attack.name}}</td>
-                  <td>{{attack.maxHit}}</td>
-                  <td>{{attack.reducedMaxHit}}</td>
-                  <td>{{attack.minimumDR}} DR% for {{totalHealth}} HP</td>
-                  <td>{{attack.minimumHP}} HP for {{currentDR}} DR%</td>
+                  <td class="text-center"></td>
+                  <td class="text-center"></td>
+                  <td class="text-center"></td>
+                  <td class="text-center">{{attack.name}}</td>
+                  <td class="text-center">{{attack.maxHit}}</td>
+                  <td class="text-center">{{attack.reducedMaxHit}}</td>
+                  <td class="text-center">{{attack.minimumDR}} DR% for {{totalHealth}} HP</td>
+                  <td class="text-center">{{attack.minimumHP}} HP for {{currentDR}} DR%</td>
                 </tr>
                 <br>
               </template>
@@ -349,19 +349,19 @@
           <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
             <thead>
               <tr>
-                <th class="align-middle" style="width: 20%" scope="col">Monster Name</th>
-                <th class="align-middle" style="width: 11%" scope="col">Style</th>
-                <th class="align-middle" style="width: 11%" scope="col">Intimidation</th>
-                <th class="align-middle" style="width: 11%" scope="col">Attack Name</th>
-                <th class="align-middle" style="width: 11%" scope="col">Max Hit</th>
-                <th class="align-middle" style="width: 11%" scope="col">Reduced Max hit</th>
-                <th class="align-middle" style="width: 11%" scope="col">
+                <th class="align-middle text-center" style="width: 20%" scope="col">Monster Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Style</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Intimidation</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Attack Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Max Hit</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Reduced Max hit</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
                     title="Total DR% you need equipped to safely idle this monster with your currently set HP">
                     <u>DR% Needed</u>
                   </div>
                 </th>
-                <th class="align-middle" style="width: 11%" scope="col">
+                <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
                     title="Total HP you need to safely idle this monster with your currently set DR%">
                     <u>HP Needed</u>
@@ -372,29 +372,29 @@
             <tbody>
               <template v-for="monster in findMonstersForArea('slayerAreas', this.slayerChoice)">
                 <tr :class="{idleable : monster.isIdleable}">
-                  <td>{{monster.name}}
+                  <td class="text-center">{{monster.name}}
                     <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}" src="assets/sleep.png"
                       title="This monster is able to put you to sleep for +20% damage.">
                     <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}" src="assets/stun.png"
                       title="This monster can stun or freeze you for +30% damage.">
                   </td>
-                  <td>{{monster.attackStyle}}</td>
-                  <td>{{monster.intimidation}}</td>
-                  <td></td>
-                  <td>{{monster.maxHit}}</td>
-                  <td>{{monster.reducedMaxHit}}</td>
-                  <td>{{monster.minimumDR}} DR% for {{totalHealth}} HP</td>
-                  <td>{{monster.minimumHP}} HP for {{currentDR}} DR%</td>
+                  <td class="text-center">{{monster.attackStyle}}</td>
+                  <td class="text-center">{{monster.intimidation}}</td>
+                  <td class="text-center"></td>
+                  <td class="text-center">{{monster.maxHit}}</td>
+                  <td class="text-center">{{monster.reducedMaxHit}}</td>
+                  <td class="text-center">{{monster.minimumDR}} DR% for {{totalHealth}} HP</td>
+                  <td class="text-center">{{monster.minimumHP}} HP for {{currentDR}} DR%</td>
                 </tr>
                 <tr v-for="attack in monster.attacks" :class="{idleable : attack.isIdleable}">
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>{{attack.name}}</td>
-                  <td>{{attack.maxHit}}</td>
-                  <td>{{attack.reducedMaxHit}}</td>
-                  <td>{{attack.minimumDR}} DR% for {{totalHealth}} HP</td>
-                  <td>{{attack.minimumHP}} HP for {{currentDR}} DR%</td>
+                  <td class="text-center"></td>
+                  <td class="text-center"></td>
+                  <td class="text-center"></td>
+                  <td class="text-center">{{attack.name}}</td>
+                  <td class="text-center">{{attack.maxHit}}</td>
+                  <td class="text-center">{{attack.reducedMaxHit}}</td>
+                  <td class="text-center">{{attack.minimumDR}} DR% for {{totalHealth}} HP</td>
+                  <td class="text-center">{{attack.minimumHP}} HP for {{currentDR}} DR%</td>
                 </tr>
                 <br>
               </template>
@@ -415,19 +415,19 @@
           <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
             <thead>
               <tr>
-                <th class="align-middle" style="width: 20%" scope="col">Monster Name</th>
-                <th class="align-middle" style="width: 11%" scope="col">Style</th>
-                <th class="align-middle" style="width: 11%" scope="col">Intimidation</th>
-                <th class="align-middle" style="width: 11%" scope="col">Attack Name</th>
-                <th class="align-middle" style="width: 11%" scope="col">Max Hit</th>
-                <th class="align-middle" style="width: 11%" scope="col">Reduced Max hit</th>
-                <th class="align-middle" style="width: 11%" scope="col">
+                <th class="align-middle text-center" style="width: 20%" scope="col">Monster Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Style</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Intimidation</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Attack Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Max Hit</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Reduced Max hit</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
                     title="Total DR% you need equipped to safely idle this monster with your currently set HP">
                     <u>DR% Needed</u>
                   </div>
                 </th>
-                <th class="align-middle" style="width: 11%" scope="col">
+                <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
                     title="Total HP you need to safely idle this monster with your currently set DR%">
                     <u>HP Needed</u>
@@ -438,29 +438,29 @@
             <tbody>
               <template v-for="monster in findMonstersForArea('dungeons', this.dungeonChoice)">
                 <tr :class="{idleable : monster.isIdleable}">
-                  <td>{{monster.name}}
+                  <td class="text-center">{{monster.name}}
                     <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}" src="assets/sleep.png"
                       title="This monster is able to put you to sleep for +20% damage.">
                     <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}" src="assets/stun.png"
                       title="This monster can stun or freeze you for +30% damage.">
                   </td>
-                  <td>{{monster.attackStyle}}</td>
-                  <td>{{monster.intimidation}}</td>
-                  <td></td>
-                  <td>{{monster.maxHit}}</td>
-                  <td>{{monster.reducedMaxHit}}</td>
-                  <td>{{monster.minimumDR}} DR% for {{totalHealth}} HP</td>
-                  <td>{{monster.minimumHP}} HP for {{currentDR}} DR%</td>
+                  <td class="text-center">{{monster.attackStyle}}</td>
+                  <td class="text-center">{{monster.intimidation}}</td>
+                  <td class="text-center"></td>
+                  <td class="text-center">{{monster.maxHit}}</td>
+                  <td class="text-center">{{monster.reducedMaxHit}}</td>
+                  <td class="text-center">{{monster.minimumDR}} DR% for {{totalHealth}} HP</td>
+                  <td class="text-center">{{monster.minimumHP}} HP for {{currentDR}} DR%</td>
                 </tr>
                 <tr v-for="attack in monster.attacks" :class="{idleable : attack.isIdleable}">
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>{{attack.name}}</td>
-                  <td>{{attack.maxHit}}</td>
-                  <td>{{attack.reducedMaxHit}}</td>
-                  <td>{{attack.minimumDR}} DR% for {{totalHealth}} HP</td>
-                  <td>{{attack.minimumHP}} HP for {{currentDR}} DR%</td>
+                  <td class="text-center"></td>
+                  <td class="text-center"></td>
+                  <td class="text-center"></td>
+                  <td class="text-center">{{attack.name}}</td>
+                  <td class="text-center">{{attack.maxHit}}</td>
+                  <td class="text-center">{{attack.reducedMaxHit}}</td>
+                  <td class="text-center">{{attack.minimumDR}} DR% for {{totalHealth}} HP</td>
+                  <td class="text-center">{{attack.minimumHP}} HP for {{currentDR}} DR%</td>
                 </tr>
                 <br>
               </template>
@@ -482,19 +482,19 @@
           <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
             <thead>
               <tr>
-                <th class="align-middle" style="width: 20%" scope="col">Monster Name</th>
-                <th class="align-middle" style="width: 11%" scope="col">Style</th>
-                <th class="align-middle" style="width: 11%" scope="col">Intimidation</th>
-                <th class="align-middle" style="width: 11%" scope="col">Attack Name</th>
-                <th class="align-middle" style="width: 11%" scope="col">Max Hit</th>
-                <th class="align-middle" style="width: 11%" scope="col">Reduced Max hit</th>
-                <th class="align-middle" style="width: 11%" scope="col">
+                <th class="align-middle text-center" style="width: 20%" scope="col">Monster Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Style</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Intimidation</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Attack Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Max Hit</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Reduced Max hit</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
                     title="Total DR% you need equipped to safely idle this monster with your currently set HP">
                     <u>DR% Needed</u>
                   </div>
                 </th>
-                <th class="align-middle" style="width: 11%" scope="col">
+                <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
                     title="Total HP you need to safely idle this monster with your currently set DR%">
                     <u>HP Needed</u>
@@ -506,7 +506,7 @@
               <template v-for="monster in findMonstersForSlayerTier(this.slayerTier)">
                 <tr
                   :class="{idleable :  monster.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' || monster.name == 'Greater Skeletal Dragon')}">
-                  <td>{{monster.name}}
+                  <td class="text-center">{{monster.name}}
                     <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}" src="assets/sleep.png"
                       title="This monster is able to put you to sleep for +20% damage.">
                     <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}" src="assets/stun.png"
@@ -519,24 +519,24 @@
                       :class="{statusIcon : (monster.name == 'Greater Skeletal Dragon') , hide : !(monster.name == 'Greater Skeletal Dragon')}"
                       src="assets/warning.png" title="Unable to determine with certainty due to affliction.">
                   </td>
-                  <td>{{monster.attackStyle}}</td>
-                  <td>{{monster.intimidation}}</td>
-                  <td></td>
-                  <td>{{monster.maxHit}}</td>
-                  <td>{{monster.reducedMaxHit}}</td>
-                  <td>{{monster.minimumDR}} DR% for {{totalHealth}} HP</td>
-                  <td>{{monster.minimumHP}} for {{currentDR}} DR%</td>
+                  <td class="text-center">{{monster.attackStyle}}</td>
+                  <td class="text-center">{{monster.intimidation}}</td>
+                  <td class="text-center"></td>
+                  <td class="text-center">{{monster.maxHit}}</td>
+                  <td class="text-center">{{monster.reducedMaxHit}}</td>
+                  <td class="text-center">{{monster.minimumDR}} DR% for {{totalHealth}} HP</td>
+                  <td class="text-center">{{monster.minimumHP}} for {{currentDR}} DR%</td>
                 </tr>
                 <tr v-for="attack in monster.attacks"
                   :class="{idleable : attack.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' || monster.name == 'Greater Skeletal Dragon')}">
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>{{attack.name}}</td>
-                  <td>{{attack.maxHit}}</td>
-                  <td>{{attack.reducedMaxHit}}</td>
-                  <td>{{attack.minimumDR}} DR% for {{totalHealth}} HP</td>
-                  <td>{{attack.minimumHP}} HP for {{currentDR}} DR%</td>
+                  <td class="text-center"></td>
+                  <td class="text-center"></td>
+                  <td class="text-center"></td>
+                  <td class="text-center">{{attack.name}}</td>
+                  <td class="text-center">{{attack.maxHit}}</td>
+                  <td class="text-center">{{attack.reducedMaxHit}}</td>
+                  <td class="text-center">{{attack.minimumDR}} DR% for {{totalHealth}} HP</td>
+                  <td class="text-center">{{attack.minimumHP}} HP for {{currentDR}} DR%</td>
                 </tr>
                 <br>
               </template>
@@ -547,19 +547,19 @@
           <table class="sortable table table-responsive-md table-striped table-dark table-bordered table-hover">
             <thead>
               <tr>
-                <th class="align-middle" style="width: 20%" scope="col">Monster Name</th>
-                <th class="align-middle" style="width: 11%" scope="col">Style</th>
-                <th class="align-middle" style="width: 11%" scope="col">Intimidation</th>
-                <th class="align-middle" style="width: 11%" scope="col">Attack Name</th>
-                <th class="align-middle" style="width: 11%" scope="col">Max Hit</th>
-                <th class="align-middle" style="width: 11%" scope="col">Reduced Max hit</th>
-                <th class="align-middle" style="width: 11%" scope="col">
+                <th class="align-middle text-center" style="width: 20%" scope="col">Monster Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Style</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Intimidation</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Attack Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Max Hit</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">Reduced Max hit</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
                     title="Total DR% you need equipped to safely idle this monster with your currently set HP">
                     <u>DR% Needed</u>
                   </div>
                 </th>
-                <th class="align-middle" style="width: 11%" scope="col">
+                <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
                     title="Total HP you need to safely idle this monster with your currently set DR%">
                     <u>HP Needed</u>
@@ -571,7 +571,7 @@
               <template v-for="monster in findMonstersforEverything()">
                 <tr
                   :class="{idleable :  monster.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' || monster.name == 'Greater Skeletal Dragon')}">
-                  <td>{{monster.name}}
+                  <td class="text-center">{{monster.name}}
                     <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}" src="assets/sleep.png"
                       title="This monster is able to put you to sleep for +20% damage.">
                     <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}" src="assets/stun.png"
@@ -584,24 +584,24 @@
                       :class="{statusIcon : (monster.name == 'Greater Skeletal Dragon') , hide : !(monster.name == 'Greater Skeletal Dragon')}"
                       src="assets/warning.png" title="Unable to determine with certainty due to affliction.">
                   </td>
-                  <td>{{monster.attackStyle}}</td>
-                  <td>{{monster.intimidation}}</td>
-                  <td></td>
-                  <td>{{monster.maxHit}}</td>
-                  <td>{{monster.reducedMaxHit}}</td>
-                  <td>{{monster.minimumDR}} DR% for {{totalHealth}} HP</td>
-                  <td>{{monster.minimumHP}}</td>
+                  <td class="text-center">{{monster.attackStyle}}</td>
+                  <td class="text-center">{{monster.intimidation}}</td>
+                  <td class="text-center"></td>
+                  <td class="text-center">{{monster.maxHit}}</td>
+                  <td class="text-center">{{monster.reducedMaxHit}}</td>
+                  <td class="text-center">{{monster.minimumDR}} DR% for {{totalHealth}} HP</td>
+                  <td class="text-center">{{monster.minimumHP}}</td>
                 </tr>
                 <tr v-for="attack in monster.attacks"
                   :class="{idleable : attack.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' || monster.name == 'Greater Skeletal Dragon')}">
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>{{attack.name}}</td>
-                  <td>{{attack.maxHit}}</td>
-                  <td>{{attack.reducedMaxHit}}</td>
-                  <td>{{attack.minimumDR}} DR% for {{totalHealth}} HP</td>
-                  <td>{{attack.minimumHP}}</td>
+                  <td class="text-center"></td>
+                  <td class="text-center"></td>
+                  <td class="text-center"></td>
+                  <td class="text-center">{{attack.name}}</td>
+                  <td class="text-center">{{attack.maxHit}}</td>
+                  <td class="text-center">{{attack.reducedMaxHit}}</td>
+                  <td class="text-center">{{attack.minimumDR}} DR% for {{totalHealth}} HP</td>
+                  <td class="text-center">{{attack.minimumHP}}</td>
                 </tr>
                 <br>
               </template>
