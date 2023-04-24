@@ -1,15 +1,26 @@
 let styleMap = new Map([["melee", "Melee"], ["ranged", "Ranged"], ["magic", "Magic"]]);
-let monsterMap = MONSTERS
+let monsterMap = game.monsters
 	.filter(monster => {
-		const ignoredMonsters = ["Mysterious Figure - Phase 1",
-			"Mysterious Figure - Phase 2",
-			"Ahrenia",
-			"Bane",
-			"Bane, Instrument of Fear"];
-		return !ignoredMonsters.includes(monster.name);
+		// const ignoredMonsters = ["Mysterious Figure - Phase 1",
+		// 	"Mysterious Figure - Phase 2",
+		// 	"Ahrenia",
+		// 	"Bane",
+		// 	"Bane, Instrument of Fear",
+		// 	"The Herald"];
+		// return !ignoredMonsters.includes(monster.name);
+		const ignoredMonsters = ["melvorF:MysteriousFigurePhase1",
+			"melvorF:MysteriousFigurePhase2",
+			"melvorF:Ahrenia",
+			"melvorF:Bane",
+			"melvorF:BaneInstrumentOfFear",
+			"melvorTotH:TheHeraldPhase1",
+			"melvorTotH:TheHeraldPhase2",
+			"melvorTotH:TheHeraldPhase3",
+		]
+		return !ignoredMonsters.includes(monster.id);
 	})
 	.sort((a, b) => {
-		return getMonsterCombatLevel(a.id) - getMonsterCombatLevel(b.id);
+		return game.monsters.getObjectByID(a.id).combatLevel - game.monsters.getObjectByID(b.id).combatLevel;
 	})
 	.map(x => {
 		let res = {};
@@ -43,7 +54,7 @@ let monsterMap = MONSTERS
 				res.attackBonus = 0;
 			}
 			if (x.selectedSpell) {
-				res.spellMaxHit = SPELLS[x.selectedSpell].maxHit
+				res.spellMaxHit = x.selectedSpell.maxHit
 			}
 		}
 
@@ -51,29 +62,29 @@ let monsterMap = MONSTERS
 		if (x.specialAttacks) {
 			let totalchance = 0
 			for (special of x.specialAttacks) {
-				if (special.onhitEffects && special.onhitEffects.length != 0) {
-					for (effects of special.onhitEffects) {
+				if (special.attack.onhitEffects && special.attack.onhitEffects.length != 0) {
+					for (effects of special.attack.onhitEffects) {
 						if (effects.type === "Stun") {
 							res.canStun = true;
 						}
 						if (effects.type === "Sleep") {
 							res.canSleep = true;
 						}
-						if (special.damage.length === 0 &&
+						if (special?.damage?.length === 0 &&
 							(effects.type === "Stun" || effects.type === "Sleep" || effects.type === "Modifier")) {
 							res.usesNormalHit = true;
 						}
 					}
 				}
-				if (special.prehitEffects && special.prehitEffects.length != 0) {
-					for (effects of special.prehitEffects) {
+				if (special.attack.prehitEffects && special.attack.prehitEffects.length != 0) {
+					for (effects of special.attack.prehitEffects) {
 						if (effects.type === "Stun") {
 							res.canStun = true;
 						}
 						if (effects.type === "Sleep") {
 							res.canSleep = true;
 						}
-						if (special.damage.length === 0 &&
+						if (special?.damage?.length === 0 &&
 							(effects.type === "Stun" || effects.type === "Sleep" || effects.type === "Modifier")) {
 							res.usesNormalHit = true;
 						}
@@ -81,13 +92,13 @@ let monsterMap = MONSTERS
 				}
 
 				v = {};
-				v.name = special.name;
-				if (special.damage.length != 0)
-					v.maxHit = special.damage[0].maxPercent;
+				v.name = special.attack.name;
+				if (special.attack.damage.length != 0)
+					v.maxHit = special.attack.damage[0].maxPercent;
 				else {
 					v.maxHit = 0;
 				}
-				totalchance = totalchance + special.defaultChance;
+				totalchance = totalchance + special.attack.defaultChance;
 				res.specialAttack.push(v);
 			}
 
@@ -100,32 +111,44 @@ let monsterMap = MONSTERS
 	});
 monsterMap;
 
-let easySlayer = MONSTERS.filter((monster, id) => {
-	const combatLevel = getMonsterCombatLevel(id);
+let easySlayer = game.monsters.filter((monster, id) => {
+	const combatLevel = monster.combatLevel;
 	return (monster.canSlayer && combatLevel >= SlayerTask.data[0].minLevel && combatLevel <= SlayerTask.data[0].maxLevel);
 }).map(x => { return x.name });
 easySlayer;
 
-let normalSlayer = MONSTERS.filter((monster, id) => {
-	const combatLevel = getMonsterCombatLevel(id);
+let normalSlayer = game.monsters.filter((monster, id) => {
+	const combatLevel = monster.combatLevel;
 	return (monster.canSlayer && combatLevel >= SlayerTask.data[1].minLevel && combatLevel <= SlayerTask.data[1].maxLevel);
 }).map(x => { return x.name });
 normalSlayer;
 
-let hardSlayer = MONSTERS.filter((monster, id) => {
-	const combatLevel = getMonsterCombatLevel(id);
+let hardSlayer = game.monsters.filter((monster, id) => {
+	const combatLevel = monster.combatLevel;
 	return (monster.canSlayer && combatLevel >= SlayerTask.data[2].minLevel && combatLevel <= SlayerTask.data[2].maxLevel);
 }).map(x => { return x.name });
 hardSlayer;
 
-let eliteSlayer = MONSTERS.filter((monster, id) => {
-	const combatLevel = getMonsterCombatLevel(id);
+let eliteSlayer = game.monsters.filter((monster, id) => {
+	const combatLevel = monster.combatLevel;
 	return (monster.canSlayer && combatLevel >= SlayerTask.data[3].minLevel && combatLevel <= SlayerTask.data[3].maxLevel);
 }).map(x => { return x.name });
 eliteSlayer;
 
-let masterSlayer = MONSTERS.filter((monster, id) => {
-	const combatLevel = getMonsterCombatLevel(id);
+let masterSlayer = game.monsters.filter((monster, id) => {
+	const combatLevel = monster.combatLevel;
 	return (monster.canSlayer && combatLevel >= SlayerTask.data[4].minLevel && combatLevel <= SlayerTask.data[4].maxLevel);
 }).map(x => { return x.name });
 masterSlayer;
+
+let legendarySlayer = game.monsters.filter((monster, id) => {
+	const combatLevel = monster.combatLevel;
+	return (monster.canSlayer && combatLevel >= SlayerTask.data[5].minLevel && combatLevel <= SlayerTask.data[5].maxLevel);
+}).map(x => { return x.name });
+legendarySlayer;
+
+let mythicalSlayer = game.monsters.filter((monster, id) => {
+	const combatLevel = monster.combatLevel;
+	return (monster.canSlayer && combatLevel >= SlayerTask.data[6].minLevel && combatLevel <= SlayerTask.data[6].maxLevel);
+}).map(x => { return x.name });
+mythicalSlayer;
