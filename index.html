@@ -197,6 +197,16 @@
             <h3 class="mb-0">All Monsters</h3>
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#combatAreas">
+            <h3 class="mb-0">Combat Areas</h3>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#slayerAreas">
+            <h3 class="mb-0">Slayer Areas</h3>
+          </a>
+        </li>
       </ul>
       <div class="tab-content">
         <div id="overview" class="tab-pane fade show active">
@@ -353,13 +363,14 @@
             </div>
             <select class="custom-select" id="slayerTier" v-model="slayerTier">
               <option selected hidden>Choose Tier</option>
-              <option>Easy</option>
+              <option v-for="calculatedTier in this.slayerTiers.map(function (tier){ return calculateInstance(tier, true); })">{{calculatedTier.name}}</option>
+              <!-- <option>Easy</option>
               <option>Normal</option>
               <option>Hard</option>
               <option>Elite</option>
               <option>Master</option>
               <option>Legendary</option>
-              <option>Mythical</option>
+              <option>Mythical</option> -->
             </select>
           </div>
           <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
@@ -618,11 +629,11 @@
         return ret;
       },
 
-      calculateMinimumDR(attackStyle, attack) {
+      calculateMinimumDR(attackStyle, attack, intimidation) {
         return Math.max(0, Math.min(100, Math.ceil(Math.ceil(100 - this.totalHealth / attack * (100 * this.autoEatThreshold)) / this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])));
       },
 
-      calculateMinimumHP(attackStyle, attack, isSlayer) {
+      calculateMinimumHP(attackStyle, attack, isSlayer, intimidation) {
         let yakAdjustedDr = parseInt(this.currentDR) + parseInt(this.calculateYakDRModifier(attackStyle, isSlayer));
         return Math.max(100, Math.ceil((attack - Math.floor(attack * (Math.floor(yakAdjustedDr * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])) / 100)) / this.autoEatThreshold / 10) * 10);
       },
