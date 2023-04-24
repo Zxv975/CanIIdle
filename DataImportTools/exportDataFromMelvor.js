@@ -8,7 +8,10 @@ let monsterMap = game.monsters
 		// 	"Bane, Instrument of Fear",
 		// 	"The Herald"];
 		// return !ignoredMonsters.includes(monster.name);
-		const ignoredMonsters = ["melvorF:MysteriousFigurePhase1",
+		const ignoredMonsters = [
+			"melvorF:RandomITM",
+			"melvorTotH:RandomSpiderLair",
+			"melvorF:MysteriousFigurePhase1",
 			"melvorF:MysteriousFigurePhase2",
 			"melvorF:Ahrenia",
 			"melvorF:Bane",
@@ -106,7 +109,12 @@ let monsterMap = game.monsters
 				res.usesNormalHit = true;
 			}
 		}
+		let intimidation = x?.passives?.filter(passive => passive.name === "Intimidation")
 
+		res.intimidation = 0
+		if (intimidation.length > 0)
+			res.intimidation = intimidation[0].modifiers.decreasedPlayerDamageReduction;
+		res.id = x.id
 		return res;
 	});
 monsterMap;
@@ -179,12 +187,48 @@ SlayerTask.data.forEach((tier, tierID) => {
 		const combatLevel = monster.combatLevel;
 		return (monster.canSlayer && combatLevel >= SlayerTask.data[tierID].minLevel && combatLevel <= SlayerTask.data[tierID].maxLevel);
 	}).map(x => { return x.name })
-	slayerTaskList.push({ name: tier.engDisplay, monsters: monstersInTier})
+	slayerTaskList.push({ name: tier.engDisplay, monsters: monstersInTier })
 }) // Array for all slayer task monsters
 
 let dungeonList = []
-game.dungeons.forEach(dungeon => dungeonList.push({ name: dungeon.name, monsters: [...new Set(dungeon.monsters.map(monster => monster.name))] })) // Grab all dungeon monsters, removing duplicates with Set
+const bannedDungeons = [
+	"melvorF:Into_the_Mist",
+	"melvorF:Impending_Darkness",
+	"melvorTotH:Lair_of_the_Spider_Queen", // Handle this one separately because of the randomness
+	"melvorTotH:Throne_of_the_Herald",
+]
+game.dungeons.forEach(dungeon => {
+	if (!bannedDungeons.includes(dungeon.id))
+		dungeonList.push({ name: dungeon.name, monsters: [...new Set(dungeon.monsters.map(monster => monster.name))] })
+}) // Grab all dungeon monsters, removing duplicates with Set
+const spiderIDs = [
+	"melvorTotH:ScouterSpider",
+	"melvorTotH:TrapperSpider",
+	"melvorTotH:WickedSpider",
+	"melvorTotH:BasherSpider",
+	"melvorTotH:EnforcerSpider",
+	"melvorTotH:GuardianSpider"
+]
+dungeonList.push({ name: "Lair of the Spider Queen", monsters: [...new Set(game.monsters.filter(monster => spiderIDs.includes(monster.id)))] }) // Handle this one separately because of the randomness
+
+let combatAreaList = []
+const bannedCombatAreas = [
+	"melvorD:UnknownArea"
+]
+game.combatAreas.forEach(area => {
+	if (!bannedCombatAreas.includes(area.id))
+		combatAreaList.push({ name: area.name, monsters: [...new Set(area.monsters.map(monster => monster.name))] })
+})
+
+let slayerAreaList = []
+const bannedSlayerAreas = []
+game.slayerAreas.forEach(area => {
+	if (!bannedSlayerAreas.includes(area.id))
+		slayerAreaList.push({ name: area.name, monsters: [...new Set(area.monsters.map(monster => monster.name))] })
+})
 
 JSON.stringify(slayerTaskList)
 JSON.stringify(dungeonList)
 JSON.stringify(monsterMap)
+JSON.stringify(combatAreaList)
+JSON.stringify(slayerAreaList)

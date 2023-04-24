@@ -40,8 +40,10 @@
     <h1 class="text-white text-center my-4" data-toggle="tooltip" data-placement="bottom"
       title="Now with more suffering">
       Can I Idle Throne of the Herald?</h1>
-    <p class="text-white text-center my-4">Up to date as of v1.0.5 Open - Copy shareable link to Clipboard:
-      <button id="copyLink" type="button" class="btn btn-secondary" @click="getShareURL()">Copy</button>
+    <h4 class="text-white text-center my-4">Up to date as of v1.1</h4>
+    <p class="text-center my-4">
+      <button id="copyLink" type="button" class="btn btn-secondary" @click="getShareURL()">Copy shareable link to
+        Clipboard</button>
     </p>
     <div id="content" class="container">
       <div class="row">
@@ -163,6 +165,15 @@
             </select>
           </div>
         </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 my-2">
+          <div class="input-group" data-toggle="tooltip" data-placement="bottom" title="Total Slayer Area Negation">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="slayerAreaNegation">Slayer Area Negation</label>
+            </div>
+            <input id="slayerAreaNegation" type="number" class="form-control" min="0" value="100" step="5"
+              v-model="slayerAreaNegation"/>
+          </div>
+        </div>
       </div>
       <hr>
       <ul class="nav nav-pills nav-fill my-3">
@@ -253,7 +264,7 @@
             <div class="input-group-prepend">
               <label class="input-group-text" for="dungeonChoice">Dungeon:</label>
             </div>
-            <select class="custom-select" id="dungeonChoice" v-model="dungeonChoice">
+            <!-- <select class="custom-select" id="dungeonChoice" v-model="dungeonChoice">
               <option selected hidden>Choose Dungeon</option>
               <option>Chicken Coop</option>
               <option>Undead Graveyard</option>
@@ -270,6 +281,15 @@
               <option>Water God Dungeon</option>
               <option>Earth God Dungeon</option>
               <option>Fire God Dungeon</option>
+              <option>Ancient Sanctuary</option>
+              <option>Underground Lava Lake</option>
+              <option>Lightning Region</option>
+              <option>Lair of the Spider Queen</option>
+              <option>Cursed Forest</option>
+              <option>Necromancers Palace</option>
+            </select> -->
+            <select class="custom-select" id="dungeonChoice" v-model="dungeonChoice">
+              <option v-for="calculatedDungeon in this.dungeons.map(function (dungeon){ return calculateInstance(dungeon, false); })">{{calculatedDungeon.name}}</option>
             </select>
           </div>
           <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
@@ -319,6 +339,7 @@
                   <td>{{attack.minimumDR}} DR% for {{totalHealth}} HP</td>
                   <td>{{attack.minimumHP}} HP for {{currentDR}} DR%</td>
                 </tr>
+                <br>
               </template>
             </tbody>
           </table>
@@ -373,7 +394,7 @@
                     <img
                       :class="{statusIcon : monster.name === 'Wicked Greater Dragon' , hide : !(monster.name === 'Wicked Greater Dragon')}"
                       src="assets/warning.png"
-                      title="Unable to fully calculate due to modifers such as slayer crossbow and astrology.">
+                      title="Unable to fully calculate due to modifers such as Slayer's Crossbow and Astrology.">
                     <img
                       :class="{statusIcon : (monster.name == 'Greater Skeletal Dragon') , hide : !(monster.name == 'Greater Skeletal Dragon')}"
                       src="assets/warning.png" title="Unable to determine with certainty due to affliction.">
@@ -395,6 +416,7 @@
                   <td>{{attack.minimumDR}} DR% for {{totalHealth}} HP</td>
                   <td>{{attack.minimumHP}} HP for {{currentDR}} DR%</td>
                 </tr>
+                <br>
               </template>
             </tbody>
           </table>
@@ -456,6 +478,7 @@
                   <td>{{attack.minimumDR}} DR% for {{totalHealth}} HP</td>
                   <td>{{attack.minimumHP}}</td>
                 </tr>
+                <br>
               </template>
             </tbody>
           </table>
@@ -464,15 +487,28 @@
     </div>
   </div>
   <div class="text-white text-center my-1 mx-auto">
-    <p>DR is always input and displayed as before triangle. Make sure youre double checking which value you
-      use.</p>
-    <p>For any issues please file a <a href="https://github.com/Silberdrachi/CanIIdle">GitHub ticket</a>.</p>
-    <p>Styling and formulas used are from the original "Can I Idle This?" website: <a
-        href="https://drboomtown.github.io/">https://drboomtown.github.io/</a></p>
-    <p>Further evolved by "Slayer Can I Idle This?" <a
-        href="https://sublimedisciple.github.io/idle-slayer.html">https://sublimedisciple.github.io/idle-slayer.html</a>
-    </p>
-    <p>Thanks to Hazel for the status icon pics.</p>
+    <h1>DR is always input and displayed as before triangle bonuses. Make sure you double check which value you use.
+    </h1>
+    <h1>Check DR in the stats window (NOT the equipment page pop-up, as this <i>only</i> accounts for equipment
+      bonuses).</h1>
+    <h1>Make sure to check DR when out of combat to minimise triangle interference.</h1>
+
+    <br>
+    <h5>For any issues please message me (Zxv#0157) on Discord as that's the most reliable way to contact me. Can also
+      submit a <a href="https://github.com/zxv975/CanIIdle">GitHub ticket</a>, although I am less likely to notice that
+      in a timely manner.</h5>
+    <br>
+    <h3>This site is a continuation of a long-standing Melvor community project.</h3>
+    <br>
+    <h4>The original site was created by Dr BoomTown, which was then further developed by Sublimed Disciple, updated and
+      modernised by Silberdrachi, then was finally updated to be compatible with the Throne of the Herald expansion and
+      is
+      currently maintained by Zxv (me).</h4>
+    <br>
+    <h5><a href="https://drboomtown.github.io/">Can I Idle This? (by Dr BoomTown)</a></h5>
+    <h5><a href="https://sublimedisciple.github.io/idle-slayer.html">Can I Idle This? (by Sublimed Disciple)</a></h5>
+    <h5><a href="https://silberdrachi.github.io/CanIIdle/">Can I Idle Melvor? (by Silberdrachi)</a></h5>
+    <br>
     <p>"Melvor Idle" is a trademark of Games by Malcs Pty Ltd and is used with the permission of Games by Malcs.</p>
   </div>
   </div>
@@ -485,27 +521,19 @@
     $('[data-toggle="tooltip"]').tooltip();
   });
 </script>
-
-<!-- <script type = "text/javascript" src="/DataImportTools/ExportedData/Exported_Data_TotH/dungeonData.json"></script>
-<script type = "text/javascript" src="/DataImportTools/ExportedData/Exported_Data_TotH/monsterData.json"></script>
-<script type = "text/javascript" src="/DataImportTools/ExportedData/Exported_Data_TotH/slayerData.json"></script> -->
-
-<script data-main="main" src="require.js"></script>
+<script src="./DataImportTools/Exported_Data/Exported_Data_TotH/dungeonData.js"></script>
+<script src="./DataImportTools/Exported_Data/Exported_Data_TotH/combatAreaData.js"></script>
+<script src="./DataImportTools/Exported_Data/Exported_Data_TotH/slayerTaskData.js"></script>
+<!-- <script src="./DataImportTools/Exported_Data/Exported_Data_TotH/combatAreaData.js"></script> -->
+<script src="./DataImportTools/Exported_Data/Exported_Data_TotH/slayerAreaData.js"></script>
 
 <script type="module">
-  let folderPath = './DataImportTools/ExportedData/Exported_Data_TotH/'
-  let dungeonData = require(`${folderPath}dungeonData.json`)
-  let monsterData = require(`${folderPath}monsterData.json`)
-  let slayerData = require(`${folderPath}slayerData.json`)
-  // let folderPath = './DataImportTools/ExportedData/ExportedDataTotH/'
-  // import dungeonData from `${folderPath}dungeonData.json`
-  // import monsterData from `${folderPath}monsterData.json`
-  // import slayerData from `${folderPath}slayerData.json`
-  // import dungeonData from './dungeonData.json'
-  // import monsterData from './monsterData.json'
-  // import slayerData from './slayerData.json'
-
-  app = new Vue({
+  import dungeonData from "./DataImportTools/Exported_Data/Exported_Data_TotH/dungeonData.js"
+  import combatAreaData from "./DataImportTools/Exported_Data/Exported_Data_TotH/combatAreaData.js"
+  import slayerAreaData from "./DataImportTools/Exported_Data/Exported_Data_TotH/slayerAreaData.js"
+  import slayerTaskData from "./DataImportTools/Exported_Data/Exported_Data_TotH/slayerTaskData.js"
+  // import dungeonData from "./DataImportTools/Exported_Data/Exported_Data_TotH/dungeonData.js"
+  let app = new Vue({
     el: '#app',
     data() {
       return {
@@ -520,11 +548,15 @@
         stunDamage: "Yes",
         dungeonChoice: "Chicken Coop",
         slayerTier: "Easy",
-        dungeons: JSON.parse(dungeonData),
-        slayerTiers: JSON.parse(slayerData),
-        monsters: JSON.parse(monsterData),
+        slayerAreaNegation: 0,
+        dungeons: dungeonData,
+        monsters: combatAreaData,
+        slayerTiers: slayerTaskData,
+        slayerAreas: slayerAreaData,
+        combatAreas: combatAreaData
       };
     },
+
     methods: {
       //General Functions
       getCombatStyle(style) {
@@ -694,6 +726,7 @@
           canStun: monster.canStun,
           attackSpeed: monster.attackSpeed,
           attacks: [],
+          intimidation: monster.intimidation
         };
 
         if (monster.usesNormalHit) {
