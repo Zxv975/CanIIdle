@@ -907,7 +907,7 @@
         return monsterInformation;
       },
 
-      findMonsterForCombatAreas(area) {
+      findMonsterForCombatArea(area) {
         let areaMonstersNames = this.combatAreas.filter(s => s.name == area)[0].monsters;
         let areaMonsters = this.monsters.filter(m => areaMonstersNames.includes(m.name)).sort((first, second) => areaMonstersNames.indexOf(first.name) - areaMonstersNames.indexOf(second.name));
         let monsterInformation = [];
@@ -917,7 +917,7 @@
         return monsterInformation;
       },
 
-      findMonsterForSlayerreas(area) {
+      findMonsterForSlayerArea(area) {
         let areaMonstersNames = this.slayerAreas.filter(s => s.name == area)[0].monsters;
         let areaMonsters = this.monsters.filter(m => areaMonstersNames.includes(m.name)).sort((first, second) => areaMonstersNames.indexOf(first.name) - areaMonstersNames.indexOf(second.name));
         let monsterInformation = [];
