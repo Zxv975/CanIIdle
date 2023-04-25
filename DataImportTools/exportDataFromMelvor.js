@@ -109,12 +109,20 @@ let monsterMap = game.monsters
 				res.usesNormalHit = true;
 			}
 		}
+
+		// Intimidation 
+
 		let intimidation = x?.passives?.filter(passive => passive.name === "Intimidation")
 
 		res.intimidation = 0
 		if (intimidation.length > 0)
 			res.intimidation = intimidation[0].modifiers.decreasedPlayerDamageReduction;
+
+		// Add monster ID because why not
 		res.id = x.id
+
+		// Add monster areas to account for area effects
+		res.areas = [...game.combatAreas.allObjects, ...game.slayerAreas.allObjects, ...game.dungeons.allObjects].filter(area => area.monsters.map(monster => monster.id).includes(x.id)).map(area => area.name)
 		return res;
 	});
 monsterMap;

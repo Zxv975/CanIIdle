@@ -503,7 +503,7 @@
               </tr>
             </thead>
             <tbody>
-              <template v-for="monster in findMonstersForSlayerTier(this.slayerTier)">
+              <template v-for="monster in findMonstersForArea('slayerTiers', this.slayerTier)">
                 <tr
                   :class="{idleable :  monster.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' || monster.name == 'Greater Skeletal Dragon')}">
                   <td class="text-center">{{monster.name}}
@@ -744,23 +744,23 @@
       },
 
       calculateMinimumDR(attackStyle, attack, intimidation) {
-        return Math.max(0, Math.min(100, Math.ceil(Math.ceil(100 - this.totalHealth / attack * (100 * this.autoEatThreshold)) / this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])) - intimidation);
+        return Math.max(0, Math.min(100, Math.ceil(Math.ceil(100 - this.totalHealth / attack * (100 * this.autoEatThreshold)) / this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])) + intimidation);
       },
 
       calculateMinimumHP(attackStyle, attack, isSlayer, intimidation) {
-        let intimidatedDR = this.currentDR - intimidation;
+        let intimidatedDR = parseInt(this.currentDR) - intimidation;
         let yakAdjustedDr = parseInt(intimidatedDR) + parseInt(this.calculateYakDRModifier(attackStyle, isSlayer));
         return Math.max(100, Math.ceil((attack - Math.floor(attack * (Math.floor(yakAdjustedDr * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])) / 100)) / this.autoEatThreshold / 10) * 10);
       },
 
       calculateReducedMaxHit(attackStyle, attack, isSlayer, intimidation) {
-        let intimidatedDR = this.currentDR - intimidation;
+        let intimidatedDR = parseInt(this.currentDR) - intimidation;
         let yakAdjustedDr = parseInt(intimidatedDR) + parseInt(this.calculateYakDRModifier(attackStyle, isSlayer));
         let combatAdjustedDr = Math.floor(yakAdjustedDr * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)]);
-        let attackReduction = Math.floor(attack * (Math.min(100, combatAdjustedDr) / 100));
-        let reducedHit = attack - attackReduction;
+        let attackReduction = attack * (Math.min(100, combatAdjustedDr) / 100);
+        let reducedHit = Math.floor(attack - attackReduction);
         if (this.guardianAmulet == "Yes" && reducedHit <= this.totalHealth * .5 && reducedHit >= this.totalHealth * this.autoEatThreshold) {
-          reducedHit = attack - Math.floor(attack * (Math.floor((parseInt(yakAdjustedDr) + 5) * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])) / 100);
+          reducedHit = Math.floor(attack - attack * (Math.floor((parseInt(yakAdjustedDr) + 5) * this.combatTriangle[this.getCombatStyle(this.combatStyle)][this.getCombatStyle(attackStyle)])) / 100);
         }
         return reducedHit;
       },
@@ -790,7 +790,10 @@
             multiplier = 1.3;
           }
           else if (monster.canSleep) {
-            multiplier = 1.2;
+            multiplier = 1.2
+            if(monster.areas.includes("Foggy Lake"))
+              multiplier += 1.5 - Math.min(150, this.slayerAreaNegation) / 100
+            // multiplier = 1 + (0.2 + monster.areas.includes("Foggy Lake") ? 1.5 - Math.max(150, this.slayerAreaNegation) / 100 : 0);
           }
         }
 
@@ -855,7 +858,9 @@
           canStun: monster.canStun,
           attackSpeed: monster.attackSpeed,
           attacks: [],
-          intimidation: monster.intimidation
+          intimidation: monster.intimidation,
+          areas: monster.areas,
+          id: monster.id
         };
 
         if (monster.usesNormalHit) {
@@ -1013,16 +1018,15 @@
       },
 
 
-      findMonstersForSlayerTier(tier) {
-        let tierMonstersNames = this.slayerTiers.filter(s => s.name == tier)[0].monsters;
-        let tierMonsters = this.monsters.filter(m => tierMonstersNames.includes(m.name));
-
-        let monsterInformation = [];
-        tierMonsters.forEach(element => {
-          monsterInformation.push(this.calculateMonster(element, true));
-        });
-        return monsterInformation;
-      },
+      // findMonstersForSlayerTier(tier) {
+      //   let tierMonstersNames = this.slayerTiers.filter(s => s.name == tier)[0].monsters;
+      //   let tierMonsters = this.monsters.filter(m => tierMonstersNames.includes(m.name));
+      //   let monsterInformation = [];
+      //   tierMonsters.forEach(element => {
+      //     monsterInformation.push(this.calculateMonster(element, true));
+      //   });
+      //   return monsterInformation;
+      // },
 
       findMonstersforEverything() {
         let monsterInformation = [];
