@@ -716,9 +716,9 @@
         monster.specialAttack.forEach(attack => {
           let currentSpecialAttack = 0;
           if (specialAttack.name === "Savage Spike") {
-            currentSpecialAttack = this.calculateSpecialAttack((attack.maxHit + 18), monster.canStun, monster.canSleep);
+            currentSpecialAttack = this.calculateSpecialAttack((attack.maxHit + 18), monster.canStun, monster.canSleep, monster.areas);
           } else {
-            currentSpecialAttack = this.calculateSpecialAttack(attack.maxHit, monster.canStun, monster.canSleep);
+            currentSpecialAttack = this.calculateSpecialAttack(attack.maxHit, monster.canStun, monster.canSleep, monster.areas);
           }
           if (currentSpecialAttack > maxSpecialAttack) {
             maxSpecialAttack = currentSpecialAttack;
@@ -771,13 +771,13 @@
 
       calculateNormalAttack(monster) {
         let maximumNormalAttack = 0;
-
+        console.log(Math.floor(this.numberMultiplier * (1.3 + effectiveAttackLevel / 10 + monster.attackBonus / 80 + effectiveAttackLevel * monster.attackBonus / 640)), monster.attackStyle)
         if (monster.attackStyle === "Melee") {
-          let effectiveAttackLevel = Math.floor(monster.attackLevel + 9);
+          let effectiveAttackLevel = monster.attackLevel + 9;
           maximumNormalAttack = Math.floor(this.numberMultiplier * (1.3 + effectiveAttackLevel / 10 + monster.attackBonus / 80 + effectiveAttackLevel * monster.attackBonus / 640));
         }
         else if (monster.attackStyle === "Ranged") {
-          let effectiveAttackLevel = Math.floor(monster.attackLevel + 9);
+          let effectiveAttackLevel = monster.attackLevel + 9;
           maximumNormalAttack = Math.floor(this.numberMultiplier * (1.3 + effectiveAttackLevel / 10 + monster.attackBonus / 80 + effectiveAttackLevel * monster.attackBonus / 640));
         }
         else if (monster.attackStyle === "Magic") {
@@ -791,16 +791,15 @@
           }
           else if (monster.canSleep) {
             multiplier = 1.2
-            if(monster.areas.includes("Foggy Lake"))
+            if (monster.areas.includes("Foggy Lake"))
               multiplier += 1.5 - Math.min(150, this.slayerAreaNegation) / 100
-            // multiplier = 1 + (0.2 + monster.areas.includes("Foggy Lake") ? 1.5 - Math.max(150, this.slayerAreaNegation) / 100 : 0);
           }
         }
 
         return Math.floor(maximumNormalAttack * multiplier);
       },
 
-      calculateSpecialAttack(specialAttack, canStun, canSleep) {
+      calculateSpecialAttack(specialAttack, canStun, canSleep, areas) {
         let baseDamage = specialAttack * this.numberMultiplier;
 
         let multiplier = 1;
@@ -810,6 +809,8 @@
           }
           else if (canSleep) {
             multiplier = 1.2;
+            if (areas.includes("Foggy Lake"))
+              multiplier += 1.5 - Math.min(150, this.slayerAreaNegation) / 100
           }
         }
 
@@ -898,7 +899,7 @@
           monsterInformation.attacks.push(attack);
         }
 
-        if (monster.specialAttack != undefined && monster.specialAttack.length != 0) {
+        if (monster.specialAttack != undefined && monster?.specialAttack?.length != 0) {
           monster.specialAttack.forEach(element => {
             let attack = {
               name: element.name,
@@ -939,13 +940,16 @@
               attack.maxHit = 0;
             }
             else if (element.name === "Savage Spike") {
-              attack.maxHit = this.calculateSpecialAttack((element.maxHit + 18), monster.canStun, monster.canSleep);
+              attack.maxHit = this.calculateSpecialAttack((element.maxHit + 18), monster.canStun, monster.canSleep, monster.areas); // Might need to change this if TotH enemies use Savage Spike
             }
             else if (element.name === "Horn Shots") {
               attack.maxHit = Math.floor(this.calculateNormalAttack(monster) * .6);
             }
-            else {
-              attack.maxHit = this.calculateSpecialAttack(element.maxHit, monster.canStun, monster.canSleep);
+            else { // Standard special attack
+              if (element.fixedAttack)
+                attack.maxHit = this.calculateSpecialAttack(element.maxHit, monster.canStun, monster.canSleep, monster.areas);  // Damage is fixed 
+              else
+                attack.maxHit = Math.floor(this.calculateNormalAttack(monster) * parseInt(element.maxHitMultiplier) / 100) // Damage is based off the base damage of the monster
             }
 
             attack.reducedMaxHit = this.calculateReducedMaxHit(monster.attackStyle, attack.maxHit, isSlayer, monster.intimidation);

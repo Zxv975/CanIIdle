@@ -96,10 +96,24 @@ let monsterMap = game.monsters
 
 				v = {};
 				v.name = special.attack.name;
-				if (special.attack.damage.length != 0)
-					v.maxHit = special.attack.damage[0].maxPercent;
-				else {
+				if (special.attack.damage.length === 0) {// Special attack does no damage, like a self-buff or a heal
 					v.maxHit = 0;
+					v.fixedAttack = true
+				} else {
+					const fixedTypes = [
+						"Fixed",
+						"PoisonFixed100",
+						"BurnFixed100",
+						"CursedFixed100",
+					]
+					const strongestSpecial = special.attack.damage.reduce((prev, curr) => prev.maxPercent > curr.maxPercent ? prev : curr) // Locate the strongest special attack for multi-hits like Torvair's
+					if (fixedTypes.includes(strongestSpecial.maxRoll)) { // This is a fixed damage attack
+						v.maxHit = strongestSpecial.maxPercent;
+						v.fixedAttack = true
+					} else { // This is an attack that scales off the enemy's base hit
+						v.maxHitMultiplier = strongestSpecial.maxPercent;
+						v.fixedAttack = false
+					}
 				}
 				totalchance = totalchance + special.attack.defaultChance;
 				res.specialAttack.push(v);
