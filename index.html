@@ -771,7 +771,6 @@
 
       calculateNormalAttack(monster) {
         let maximumNormalAttack = 0;
-        console.log(Math.floor(this.numberMultiplier * (1.3 + effectiveAttackLevel / 10 + monster.attackBonus / 80 + effectiveAttackLevel * monster.attackBonus / 640)), monster.attackStyle)
         if (monster.attackStyle === "Melee") {
           let effectiveAttackLevel = monster.attackLevel + 9;
           maximumNormalAttack = Math.floor(this.numberMultiplier * (1.3 + effectiveAttackLevel / 10 + monster.attackBonus / 80 + effectiveAttackLevel * monster.attackBonus / 640));
