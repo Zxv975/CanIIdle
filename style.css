@@ -78,3 +78,7 @@ tr th div {
   right: 0.4em;
   top: 0.4em;
 }
+
+[v-cloak] {
+  display: none;
+}

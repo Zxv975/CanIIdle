@@ -36,13 +36,13 @@
 </head>
 
 <body>
-  <div id='app' class="container-fluid">
+  <div id='app' class="container-fluid" v-cloak>
     <h1 class="text-white text-center my-4" data-toggle="tooltip" data-placement="bottom"
-      title="Now with more suffering">
+      title="Now with more suffering" v-i18n="'title'" v-i18n-title="'titleTooltip'">
       Can I Idle Throne of the Herald?</h1>
-    <h4 class="text-white text-center my-4">Up to date as of v1.1</h4>
+    <h4 class="text-white text-center my-4" v-i18n="'version'">Up to date as of v1.1</h4>
     <p class="text-center my-4">
-      <button id="copyLink" type="button" class="btn btn-secondary" @click="getShareURL()">Copy shareable link to
+      <button id="copyLink" type="button" class="btn btn-secondary" @click="getShareURL()" v-i18n="'shareButtonText'">Copy shareable link to
         Clipboard</button>
     </p>
     <div class="input-group language-div">
@@ -53,24 +53,23 @@
         <option>English</option>
         <option>简体中文</option>
       </select>
-<!--      <button @click="test()">test</button>-->
     </div>
     <div id="content" class="container">
       <div class="row">
         <div class="col-lg-3 col-md-4 col-sm-6 my-2">
-          <div class="input-group" data-toggle="tooltip" data-placement="bottom" title="Max health value (not level)">
+          <div class="input-group" data-toggle="tooltip" data-placement="bottom" title="Max health value (not level)" v-i18n-title="'totalHealthTooltip'">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="totalHealth">Total Health</label>
+              <label class="input-group-text" for="totalHealth" v-i18n="'totalHealth'">Total Health</label>
             </div>
             <input id="totalHealth" type="number" class="form-control" min="100" value="100" step="10"
-              v-model="totalHealth" />
+              v-model="totalHealth"/>
           </div>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 my-2">
           <div class="input-group" data-toggle="tooltip" data-placement="bottom"
-            title="Current out of combat Damage Reduction %">
+            title="Current out of combat Damage Reduction %" v-i18n-title="'currentDRTooltip'">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="currentDR">Current DR%</label>
+              <label class="input-group-text" for="currentDR" v-i18n="'currentDR'">Current DR%</label>
             </div>
             <input id="currentDR" type="number" class="form-control" min="0" max="87" value="0" v-model="currentDR" />
           </div>
@@ -78,7 +77,7 @@
         <div class="col-lg-3 col-md-4 col-sm-12 my-2">
           <div class="input-group">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="autoEatLevel">Auto Eat Level:</label>
+              <label class="input-group-text" for="autoEatLevel" v-i18n="'autoEatLevel'">Auto Eat Level:</label>
             </div>
             <select class="custom-select" id="autoEatLevel" v-model="autoEatLevel">
               <option>1</option>
@@ -90,31 +89,31 @@
         <div class="col-lg-3 col-md-4 col-sm-6 my-2">
           <div class="input-group">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="combatStyle">Combat Style</label>
+              <label class="input-group-text" for="combatStyle" v-i18n="'combatStyle'">Combat Style</label>
             </div>
             <select id="combatStyle" class="custom-select" v-model="combatStyle">
-              <option>Melee</option>
-              <option>Ranged</option>
-              <option>Magic</option>
+              <option value="Melee" v-i18n="'Melee'">Melee</option>
+              <option value="Ranged" v-i18n="'Ranged'">Ranged</option>
+              <option value="Magic" v-i18n="'Magic'">Magic</option>
             </select>
           </div>
         </div>
         <div class="col-lg-6 col-md-4 col-sm-6 my-2">
           <div class="input-group">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="gameMode">Game Mode</label>
+              <label class="input-group-text" for="gameMode" v-i18n="'gameMode'">Game Mode</label>
             </div>
             <select id="gameMode" class="custom-select" v-model="gameMode">
-              <option>Normal</option>
-              <option>Hardcore</option>
-              <option>Adventure</option>
-              <option>Internal Suffering</option>
+              <option value="Normal" v-i18n="'Normal'">Normal</option>
+              <option value="Hardcore" v-i18n="'Hardcore'">Hardcore</option>
+              <option value="Adventure" v-i18n="'Adventure'">Adventure</option>
+              <option value="Internal Suffering" v-i18n="'Internal Suffering'">Internal Suffering</option>
             </select>
           </div>
         </div>
         <div class="col-lg-6 col-md-4 my-2">
           <a class="btn btn-primary col" type="button" data-toggle="collapse" data-target="#advancedOptions"
-            aria-expanded="false" aria-controls="advancedOptionsButton">
+            aria-expanded="false" aria-controls="advancedOptionsButton" v-i18n="'advancedOption'">
             Advanced Options
           </a>
         </div>
@@ -124,61 +123,61 @@
         <hr>
         <div class="col-md-6 col-xs-12 my-2">
           <div class="input-group" data-toggle="tooltip" data-placement="bottom"
-            title="Increases autoeat threshold by 5%">
+            title="Increases autoeat threshold by 5%" v-i18n-title="'wastefulRingTooltip'">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="wastefulRing">Wasteful Ring</label>
+              <label class="input-group-text" for="wastefulRing" v-i18n="'wastefulRing'">Wasteful Ring</label>
             </div>
             <select id="wastefulRing" class="custom-select" v-model="wastefulRing"
               :class="{selected : wastefulRing == 'Yes'}">
-              <option>Yes</option>
-              <option selected>No</option>
+              <option value="Yes" v-i18n="'yes'">Yes</option>
+              <option selected value="No" v-i18n="'no'">No</option>
             </select>
           </div>
         </div>
         <div class="col-md-6 col-xs-12 my-2">
           <div class="input-group" data-toggle="tooltip" data-placement="bottom"
-            title="Gives 5% more DR if your health falls below 50% of your max health.">
+            title="Gives 5% more DR if your health falls below 50% of your max health." v-i18n-title="'guardianAmuletTooltip'">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="guardianAmulet">Guardian Amulet</label>
+              <label class="input-group-text" for="guardianAmulet" v-i18n="'guardianAmulet'">Guardian Amulet</label>
             </div>
             <select id="guardianAmulet" class="custom-select" v-model="guardianAmulet"
               :class="{selected : guardianAmulet == 'Yes'}">
-              <option>Yes</option>
-              <option selected>No</option>
+              <option value="Yes" v-i18n="'yes'">Yes</option>
+              <option selected value="No" v-i18n="'no'">No</option>
             </select>
           </div>
         </div>
         <div class="col-md-6 col-xs-12 my-2">
           <div class="input-group">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="yakSynergy">Yak Synergy</label>
+              <label class="input-group-text" for="yakSynergy" v-i18n="'yakSynergy'">Yak Synergy</label>
             </div>
             <select id="yakSynergy" class="custom-select" v-model="yakSynergy">
-              <option>None</option>
-              <option>Minotaur</option>
-              <option>Centaur</option>
-              <option>Witch</option>
-              <option>Cyclops</option>
+              <option value="None" v-i18n="'None'">None</option>
+              <option value="Minotaur" v-i18n="'Minotaur'">Minotaur</option>
+              <option value="Centaur" v-i18n="'Centaur'">Centaur</option>
+              <option value="Witch" v-i18n="'Witch'">Witch</option>
+              <option value="Cyclops" v-i18n="'Cyclops'">Cyclops</option>
             </select>
           </div>
         </div>
         <div class="col-md-6 col-xs-12 my-2">
           <div class="input-group" data-toggle="tooltip" data-placement="bottom"
-            title="Enables or disables enemy stun/sleep damage">
+            title="Enables or disables enemy stun/sleep damage" v-i18n-title="'stunDamageTooltip'">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="stunDamage">Status Damage</label>
+              <label class="input-group-text" for="stunDamage" v-i18n="'stunDamage'">Status Damage</label>
             </div>
             <select id="stunDamage" class="custom-select" v-model="stunDamage"
               :class="{unselected : stunDamage == 'No'}">
-              <option selected>Yes</option>
-              <option>No</option>
+              <option selected value="Yes" v-i18n="'yes'">Yes</option>
+              <option value="No" v-i18n="'no'">No</option>
             </select>
           </div>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 my-2">
-          <div class="input-group" data-toggle="tooltip" data-placement="bottom" title="Total Slayer Area Negation">
+          <div class="input-group" data-toggle="tooltip" data-placement="bottom" title="Total Slayer Area Negation" v-i18n-title="'slayerAreaNegationTooltip'">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="slayerAreaNegation">Slayer Area Negation</label>
+              <label class="input-group-text" for="slayerAreaNegation" v-i18n="'slayerAreaNegation'">Slayer Area Negation</label>
             </div>
             <input id="slayerAreaNegation" type="number" class="form-control" min="0" value="100" step="5"
               v-model="slayerAreaNegation" />
@@ -189,32 +188,32 @@
       <ul class="nav nav-pills nav-fill my-3">
         <li class="nav-item">
           <a class="nav-link active" data-toggle="tab" href="#overview">
-            <h3 class="mb-0">Overview</h3>
+            <h3 class="mb-0" v-i18n="'overview'">Overview</h3>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#combatAreas">
-            <h3 class="mb-0">Combat Areas</h3>
+            <h3 class="mb-0" v-i18n="'combatAreas'">Combat Areas</h3>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#slayerAreas">
-            <h3 class="mb-0">Slayer Areas</h3>
+            <h3 class="mb-0" v-i18n="'slayerAreas'">Slayer Areas</h3>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#dungeons">
-            <h3 class="mb-0">Dungeons</h3>
+            <h3 class="mb-0" v-i18n="'dungeons'">Dungeons</h3>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#slayer">
-            <h3 class="mb-0">Slayer</h3>
+            <h3 class="mb-0" v-i18n="'slayer'">Slayer</h3>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#allMonsters">
-            <h3 class="mb-0">All Monsters</h3>
+            <h3 class="mb-0" v-i18n="'allMonsters'">All Monsters</h3>
           </a>
         </li>
       </ul>
@@ -224,17 +223,17 @@
             class="table table-responsive-md table-striped table-dark table-bordered table-hover">
             <thead>
               <tr>
-                <th class="align-middle text-center" style="width: 20%" scope="col">Dungeon Name</th>
+                <th class="align-middle text-center" style="width: 20%" scope="col" v-i18n="'dungeonName'">Dungeon Name</th>
                 <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
-                    title="Total DR% you need equipped to safely idle this monster with your currently set HP">
-                    <u>DR% Needed</u>
+                    title="Total DR% you need equipped to safely idle this monster with your currently set HP" v-i18n-title="'drNeededTooltip'">
+                    <u v-i18n="'drNeeded'">DR% Needed</u>
                   </div>
                 </th>
                 <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
-                    title="Total HP you need to safely idle this monster with your currently set DR%">
-                    <u>HP Needed</u>
+                    title="Total HP you need to safely idle this monster with your currently set DR%" v-i18n-title="'hpNeededTooltip'">
+                    <u v-i18n="'hpNeeded'">HP Needed</u>
                   </div>
                 </th>
               </tr>
@@ -253,17 +252,17 @@
             class="table table-responsive-md table-striped table-dark table-bordered table-hover">
             <thead>
               <tr>
-                <th class="align-middle text-center" style="width: 20%" scope="col">Slayer Tier</th>
+                <th class="align-middle text-center" style="width: 20%" scope="col" v-i18n="'slayerTier'">Slayer Tier</th>
                 <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
-                    title="Total DR% you need equipped to safely idle this monster with your currently set HP">
-                    <u>DR% Needed</u>
+                    title="Total DR% you need equipped to safely idle this monster with your currently set HP" v-i18n-title="'drNeededTooltip'">
+                    <u v-i18n="'drNeeded'">DR% Needed</u>
                   </div>
                 </th>
                 <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
-                    title="Total HP you need to safely idle this monster with your currently set DR%">
-                    <u>HP Needed</u>
+                    title="Total HP you need to safely idle this monster with your currently set DR%" v-i18n-title="'hpNeededTooltip'">
+                    <u v-i18n="'hpNeeded'">HP Needed</u>
                   </div>
                 </th>
               </tr>
@@ -282,7 +281,7 @@
         <div id="combatAreas" class="tab-pane fade">
           <div class="input-group my-3">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="combatChoice">Dungeon:</label>
+              <label class="input-group-text" for="combatChoice" v-i18n="'dungeonName'">Dungeon:</label>
             </div>
             <select class="custom-select" id="combatChoice" v-model="combatChoice">
               <option
@@ -348,7 +347,7 @@
         <div id="slayerAreas" class="tab-pane fade">
           <div class="input-group my-3">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="slayerChoice">Dungeon:</label>
+              <label class="input-group-text" for="slayerChoice" v-i18n="'dungeonName'">Dungeon:</label>
             </div>
             <select class="custom-select" id="slayerChoice" v-model="slayerChoice">
               <option
@@ -414,7 +413,7 @@
         <div id="dungeons" class="tab-pane fade">
           <div class="input-group my-3">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="dungeonChoice">Dungeon:</label>
+              <label class="input-group-text" for="dungeonChoice" v-i18n="'dungeonName'">Dungeon:</label>
             </div>
             <select class="custom-select" id="dungeonChoice" v-model="dungeonChoice">
               <option
@@ -480,7 +479,7 @@
         <div id="slayer" class="tab-pane fade">
           <div class="input-group my-3">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="slayerTier">Slayer Tier:</label>
+              <label class="input-group-text" for="slayerTier" v-i18n="'slayerTier'">Slayer Tier:</label>
             </div>
             <select class="custom-select" id="slayerTier" v-model="slayerTier">
               <option selected hidden>Choose Tier</option>
@@ -620,22 +619,21 @@
         </div>
       </div>
     </div>
-  </div>
   <div class="text-white text-center my-1 mx-auto">
-    <h1>DR is always input and displayed as before triangle bonuses. Make sure you double check which value you use.
+    <h1 v-i18n="'desc1'">DR is always input and displayed as before triangle bonuses. Make sure you double check which value you use.
     </h1>
-    <h1>Check DR in the stats window (NOT the equipment page pop-up, as this <i>only</i> accounts for equipment
+    <h1 v-i18n="'desc2'">Check DR in the stats window (NOT the equipment page pop-up, as this <i>only</i> accounts for equipment
       bonuses).</h1>
-    <h1>Make sure to check DR when out of combat to minimise triangle interference.</h1>
+    <h1 v-i18n="'desc3'">Make sure to check DR when out of combat to minimise triangle interference.</h1>
 
     <br>
-    <h5>For any issues please message me (Zxv#0157) on Discord as that's the most reliable way to contact me. Can also
+    <h5 v-i18n="'desc4'">For any issues please message me (Zxv#0157) on Discord as that's the most reliable way to contact me. Can also
       submit a <a href="https://github.com/zxv975/CanIIdle">GitHub ticket</a>, although I am less likely to notice that
       in a timely manner.</h5>
     <br>
-    <h3>This site is a continuation of a long-standing Melvor community project.</h3>
+    <h3 v-i18n="'desc5'">This site is a continuation of a long-standing Melvor community project.</h3>
     <br>
-    <h4>The original site was created by Dr BoomTown, which was then further developed by Sublimed Disciple, updated and
+    <h4 v-i18n="'desc6'">The original site was created by Dr BoomTown, which was then further developed by Sublimed Disciple, updated and
       modernised by Silberdrachi, then was finally updated to be compatible with the Throne of the Herald expansion and
       is
       currently maintained by Zxv (me).</h4>
@@ -644,7 +642,7 @@
     <h5><a href="https://sublimedisciple.github.io/idle-slayer.html">Can I Idle This? (by Sublimed Disciple)</a></h5>
     <h5><a href="https://silberdrachi.github.io/CanIIdle/">Can I Idle Melvor? (by Silberdrachi)</a></h5>
     <br>
-    <p>"Melvor Idle" is a trademark of Games by Malcs Pty Ltd and is used with the permission of Games by Malcs.</p>
+    <p v-i18n="'desc7'">"Melvor Idle" is a trademark of Games by Malcs Pty Ltd and is used with the permission of Games by Malcs.</p>
   </div>
   </div>
 </body>
@@ -668,7 +666,8 @@
   import { slayerAreaData } from "./DataImportTools/Exported_Data/Exported_Data_TotH/slayerAreaData.js"
   import { slayerTaskData } from "./DataImportTools/Exported_Data/Exported_Data_TotH/slayerTaskData.js"
   import { monsterData } from "./DataImportTools/Exported_Data/Exported_Data_TotH/monsterData.js"
-  import {i18nData} from "./DataImportTools/Exported_Data/i18n.js"
+  import { i18nData } from "./DataImportTools/Exported_Data/i18n.js"
+
   let app = new Vue({
     el: '#app',
     data() {
@@ -1054,9 +1053,28 @@
         return monsterInformation;
       },
 
-      test(){
-        console.log('i18n',this.i18n)
-        console.log('language',this.language)
+      i18nFunction(el, binding, vnode) {
+        let key = binding.value
+        if (i18nData && i18nData[vnode.context.language] && i18nData[vnode.context.language][key]) {
+          let text = i18nData[vnode.context.language][key];
+          el.setAttribute('data-original-text', el.innerHTML)
+          el.innerHTML = text
+        } else {
+          el.innerHTML = el.getAttribute('data-original-text') || el.innerHTML
+        }
+      },
+
+      i18nTitleFunction(el, binding, vnode) {
+        let key = binding.value
+        if (i18nData && i18nData[vnode.context.language] && i18nData[vnode.context.language][key]) {
+          let text = i18nData[vnode.context.language][key];
+          el.setAttribute('data-original-original-title', el.getAttribute('title'))
+          el.setAttribute('data-original-title', text)
+          el.setAttribute('title', text)
+        } else {
+          el.setAttribute('data-original-title', el.getAttribute('data-original-original-title'))
+          el.setAttribute('title', el.getAttribute('data-original-original-title'))
+        }
       },
     },
     computed: {
@@ -1201,6 +1219,34 @@
       language(newLanguage) {
         localStorage.language = newLanguage;
       },
+    },
+
+    filters: {
+      i18n(value, key) {
+        if (i18nData && i18nData[localStorage.language] && i18nData[localStorage.language][key]) {
+          return i18nData[localStorage.language][key]
+        }
+        return value
+      },
+    },
+
+    directives: {
+      i18n: {
+        bind(el, binding, vnode) {
+          vnode.context.i18nFunction(el, binding, vnode)
+        },
+        update(el, binding, vnode) {
+          vnode.context.i18nFunction(el, binding, vnode)
+        },
+      },
+      i18nTitle: {
+        bind(el, binding, vnode) {
+          vnode.context.i18nTitleFunction(el, binding, vnode)
+        },
+        update(el, binding, vnode) {
+          vnode.context.i18nTitleFunction(el, binding, vnode)
+        },
+      }
     }
   });
 </script>
