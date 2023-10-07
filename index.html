@@ -658,6 +658,7 @@
   import { slayerAreaData } from "./DataImportTools/Exported_Data/Exported_Data_TotH/slayerAreaData.js"
   import { slayerTaskData } from "./DataImportTools/Exported_Data/Exported_Data_TotH/slayerTaskData.js"
   import { monsterData } from "./DataImportTools/Exported_Data/Exported_Data_TotH/monsterData.js"
+  import {i18nData} from "./DataImportTools/Exported_Data/i18n.js"
   let app = new Vue({
     el: '#app',
     data() {
@@ -680,7 +681,9 @@
         monsters: monsterData,
         slayerTiers: slayerTaskData,
         slayerAreas: slayerAreaData,
-        combatAreas: combatAreaData
+        combatAreas: combatAreaData,
+        language: "enUS",
+        i18n: i18nData
       };
     },
 
@@ -946,7 +949,7 @@
             }
             else { // Standard special attack
               if (element.fixedAttack)
-                attack.maxHit = this.calculateSpecialAttack(element.maxHit, monster.canStun, monster.canSleep, monster.areas);  // Damage is fixed 
+                attack.maxHit = this.calculateSpecialAttack(element.maxHit, monster.canStun, monster.canSleep, monster.areas);  // Damage is fixed
               else
                 attack.maxHit = Math.floor(this.calculateNormalAttack(monster) * parseInt(element.maxHitMultiplier) / 100) // Damage is based off the base damage of the monster
             }
@@ -1113,6 +1116,9 @@
         if (params.has("stunDamage")) {
           this.stunDamage = params.get("stunDamage");
         }
+        if (params.has("language")) {
+          this.language = params.get("language");
+        }
       } else {
         if (localStorage.slayerTier) {
           this.slayerTier = localStorage.slayerTier;
@@ -1140,6 +1146,9 @@
         }
         if (localStorage.slayerChoice) {
           this.slayerChoice = localStorage.slayerChoice;
+        }
+        if (localStorage.language) {
+          this.language = localStorage.language;
         }
       }
     },
@@ -1171,6 +1180,9 @@
       },
       slayerTier(newSlayerTier) {
         localStorage.slayerTier = newSlayerTier;
+      },
+      language(newLanguage) {
+        localStorage.language = newLanguage;
       },
     }
   });
