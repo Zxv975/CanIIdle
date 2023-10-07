@@ -45,6 +45,16 @@
       <button id="copyLink" type="button" class="btn btn-secondary" @click="getShareURL()">Copy shareable link to
         Clipboard</button>
     </p>
+    <div class="input-group language-div">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="language">Language:</label>
+      </div>
+      <select class="custom-select" id="language" v-model="language">
+        <option>English</option>
+        <option>简体中文</option>
+      </select>
+<!--      <button @click="test()">test</button>-->
+    </div>
     <div id="content" class="container">
       <div class="row">
         <div class="col-lg-3 col-md-4 col-sm-6 my-2">
@@ -682,7 +692,7 @@
         slayerTiers: slayerTaskData,
         slayerAreas: slayerAreaData,
         combatAreas: combatAreaData,
-        language: "enUS",
+        language: "English",
         i18n: i18nData
       };
     },
@@ -702,9 +712,11 @@
 
       // Share URL
       getShareURL() {
-        navigator.clipboard.writeText(window.location.protocol + "//" + window.location.hostname + window.location.pathname + "?" + "totalHealth=" + this.totalHealth +
+        let port = !!window.location.port ?  `:${window.location.port}` : ''
+        navigator.clipboard.writeText(window.location.protocol + "//" + window.location.hostname + port + window.location.pathname + "?" + "totalHealth=" + this.totalHealth +
           "&" + "currentDR=" + this.currentDR + "&" + "autoEatLevel=" + this.autoEatLevel + "&" + "combatStyle=" + this.combatStyle + "&" + "gameMode=" + this.gameMode +
-          "&" + "yakSynergy=" + this.yakSynergy + "&" + "wastefulRing=" + this.wastefulRing + "&" + "guardianAmulet=" + this.guardianAmulet + "&" + "stunDamage=" + this.stunDamage)
+          "&" + "yakSynergy=" + this.yakSynergy + "&" + "wastefulRing=" + this.wastefulRing + "&" + "guardianAmulet=" + this.guardianAmulet + "&" + "stunDamage=" + this.stunDamage +
+          "&" + "language=" + this.language)
           .catch(err => {
             alert('Error in copying text: ', err);
           });
@@ -1040,6 +1052,11 @@
           monsterInformation.push(this.calculateMonster(element, false));
         });
         return monsterInformation;
+      },
+
+      test(){
+        console.log('i18n',this.i18n)
+        console.log('language',this.language)
       },
     },
     computed: {

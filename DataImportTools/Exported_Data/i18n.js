@@ -1,5 +1,8 @@
 export const i18nData = {
-    "enUS": {
+    "English": {
         "title1": ""
+    },
+    "简体中文": {
+        "title": ""
     }
 }

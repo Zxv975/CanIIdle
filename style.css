@@ -2,7 +2,7 @@ body{
     background: #806a22;
 }
 
-u {    
+u {
   border-bottom: 1px dotted white;
   text-decoration: none;
 }
@@ -29,7 +29,7 @@ hr {
   border-bottom: 1px solid #ffffff;
 }
 
-tr th div { 
+tr th div {
   display: inline;
 }
 
@@ -70,4 +70,11 @@ tr th div {
 
 .input-group {
   flex-wrap: nowrap;
+}
+
+.language-div {
+  position: fixed;
+  width: 15em;
+  right: 0.4em;
+  top: 0.4em;
 }
