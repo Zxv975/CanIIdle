@@ -242,7 +242,7 @@
               <tr
                 v-for="calculatedDungeon in this.dungeons.map(function (dungeon){ return calculateInstance(dungeon, false); })"
                 :class="{idleable : calculatedDungeon.isIdleable}">
-                <td class="text-center">{{calculatedDungeon.name}}</td>
+                <td class="text-center">{{calculatedDungeon.name|i18n('dungeonsAreas')}}</td>
                 <td class="text-center">{{calculatedDungeon.minimumDR}} DR% for {{totalHealth}} HP</td>
                 <td class="text-center">{{calculatedDungeon.minimumHP}} HP for {{currentDR}} DR%</td>
               </tr>
@@ -271,7 +271,7 @@
               <tr
                 v-for="calculatedTier in this.slayerTiers.map(function (tier){ return calculateInstance(tier, true); })"
                 :class="{idleable : calculatedTier.isIdleable, warning : calculatedTier.name == 'Master'}">
-                <td class="text-center">{{calculatedTier.name}}</td>
+                <td class="text-center">{{calculatedTier.name|i18n('slayerTiers')}}</td>
                 <td class="text-center">{{calculatedTier.minimumDR}} DR% for {{totalHealth}} HP</td>
                 <td class="text-center">{{calculatedTier.minimumHP}} HP for {{currentDR}} DR%</td>
               </tr>
@@ -285,29 +285,29 @@
             </div>
             <select class="custom-select" id="combatChoice" v-model="combatChoice">
               <option
-                v-for="calculatedCombat in this.combatAreas.map(function (combatArea){ return calculateInstance(combatArea, false); })">
-                {{calculatedCombat.name}}</option>
+                v-for="calculatedCombat in this.combatAreas.map(function (combatArea){ return calculateInstance(combatArea, false); })" :value="calculatedCombat.name">
+                {{calculatedCombat.name|i18n('combatAreas')}}</option>
             </select>
           </div>
           <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
             <thead>
               <tr>
-                <th class="align-middle text-center" style="width: 20%" scope="col">Monster Name</th>
-                <th class="align-middle text-center" style="width: 11%" scope="col">Style</th>
+                <th class="align-middle text-center" style="width: 20%" scope="col" v-i18n="'monsterName'">Monster Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col" v-i18n="'style'">Style</th>
                 <th class="align-middle text-center" style="width: 11%" scope="col">Intimidation</th>
-                <th class="align-middle text-center" style="width: 11%" scope="col">Attack Name</th>
-                <th class="align-middle text-center" style="width: 11%" scope="col">Max Hit</th>
-                <th class="align-middle text-center" style="width: 11%" scope="col">Reduced Max hit</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col" v-i18n="'attackName'">Attack Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col" v-i18n="'maxHit'">Max Hit</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col" v-i18n="'reducedMaxHit'">Reduced Max hit</th>
                 <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
-                    title="Total DR% you need equipped to safely idle this monster with your currently set HP">
-                    <u>DR% Needed</u>
+                    title="Total DR% you need equipped to safely idle this monster with your currently set HP" v-i18n-title="'drNeededTooltip'">
+                    <u v-i18n="'drNeeded'">DR% Needed</u>
                   </div>
                 </th>
                 <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
-                    title="Total HP you need to safely idle this monster with your currently set DR%">
-                    <u>HP Needed</u>
+                    title="Total HP you need to safely idle this monster with your currently set DR%" v-i18n-title="'hpNeededTooltip'">
+                    <u v-i18n="'hpNeeded'">HP Needed</u>
                   </div>
                 </th>
               </tr>
@@ -315,13 +315,13 @@
             <tbody>
               <template v-for="monster in findMonstersForArea('combatAreas', this.combatChoice)">
                 <tr :class="{idleable : monster.isIdleable}">
-                  <td class="text-center">{{monster.name}}
+                  <td class="text-center">{{monster.name|i18n('monster')}}
                     <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}" src="assets/sleep.png"
-                      title="This mmonster is able to put you to sleep for +20% damage.">
+                      title="This monster is able to put you to sleep for +20% damage." v-i18n-title="'monsterCanSleep'">
                     <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}" src="assets/stun.png"
-                      title="This monster can stun or freeze you for +30% damage.">
+                      title="This monster can stun or freeze you for +30% damage." v-i18n-title="'monsterCanStun'">
                   </td>
-                  <td class="text-center">{{monster.attackStyle}}</td>
+                  <td class="text-center">{{monster.attackStyle|i18n}}</td>
                   <td class="text-center">{{monster.intimidation}}</td>
                   <td class="text-center"></td>
                   <td class="text-center">{{monster.maxHit}}</td>
@@ -351,29 +351,29 @@
             </div>
             <select class="custom-select" id="slayerChoice" v-model="slayerChoice">
               <option
-                v-for="calculatedArea in this.slayerAreas.map(function (slayerArea){ return calculateInstance(slayerArea, false); })">
-                {{calculatedArea.name}}</option>
+                v-for="calculatedArea in this.slayerAreas.map(function (slayerArea){ return calculateInstance(slayerArea, false); })" :value="calculatedArea.name">
+                {{calculatedArea.name|i18n('slayerAreas')}}</option>
             </select>
           </div>
           <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
             <thead>
               <tr>
-                <th class="align-middle text-center" style="width: 20%" scope="col">Monster Name</th>
-                <th class="align-middle text-center" style="width: 11%" scope="col">Style</th>
+                <th class="align-middle text-center" style="width: 20%" scope="col" v-i18n="'monsterName'">Monster Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col" v-i18n="'style'">Style</th>
                 <th class="align-middle text-center" style="width: 11%" scope="col">Intimidation</th>
-                <th class="align-middle text-center" style="width: 11%" scope="col">Attack Name</th>
-                <th class="align-middle text-center" style="width: 11%" scope="col">Max Hit</th>
-                <th class="align-middle text-center" style="width: 11%" scope="col">Reduced Max hit</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col" v-i18n="'attackName'">Attack Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col" v-i18n="'maxHit'">Max Hit</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col" v-i18n="'reducedMaxHit'">Reduced Max hit</th>
                 <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
-                    title="Total DR% you need equipped to safely idle this monster with your currently set HP">
-                    <u>DR% Needed</u>
+                    title="Total DR% you need equipped to safely idle this monster with your currently set HP" v-i18n-title="'drNeededTooltip'">
+                    <u v-i18n="'drNeeded'">DR% Needed</u>
                   </div>
                 </th>
                 <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
-                    title="Total HP you need to safely idle this monster with your currently set DR%">
-                    <u>HP Needed</u>
+                    title="Total HP you need to safely idle this monster with your currently set DR%" v-i18n-title="'hpNeededTooltip'">
+                    <u v-i18n="'hpNeeded'">HP Needed</u>
                   </div>
                 </th>
               </tr>
@@ -381,13 +381,13 @@
             <tbody>
               <template v-for="monster in findMonstersForArea('slayerAreas', this.slayerChoice)">
                 <tr :class="{idleable : monster.isIdleable}">
-                  <td class="text-center">{{monster.name}}
+                  <td class="text-center">{{monster.name|i18n('monster')}}
                     <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}" src="assets/sleep.png"
-                      title="This monster is able to put you to sleep for +20% damage.">
+                      title="This monster is able to put you to sleep for +20% damage." v-i18n-title="'monsterCanSleep'">
                     <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}" src="assets/stun.png"
-                      title="This monster can stun or freeze you for +30% damage.">
+                      title="This monster can stun or freeze you for +30% damage." v-i18n-title="'monsterCanStun'">
                   </td>
-                  <td class="text-center">{{monster.attackStyle}}</td>
+                  <td class="text-center">{{monster.attackStyle|i18n}}</td>
                   <td class="text-center">{{monster.intimidation}}</td>
                   <td class="text-center"></td>
                   <td class="text-center">{{monster.maxHit}}</td>
@@ -417,29 +417,29 @@
             </div>
             <select class="custom-select" id="dungeonChoice" v-model="dungeonChoice">
               <option
-                v-for="calculatedDungeon in this.dungeons.map(function (dungeon){ return calculateInstance(dungeon, false); })">
-                {{calculatedDungeon.name}}</option>
+                v-for="calculatedDungeon in this.dungeons.map(function (dungeon){ return calculateInstance(dungeon, false); })" :value="calculatedDungeon.name">
+                {{calculatedDungeon.name|i18n('dungeonsAreas')}}</option>
             </select>
           </div>
           <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
             <thead>
               <tr>
-                <th class="align-middle text-center" style="width: 20%" scope="col">Monster Name</th>
-                <th class="align-middle text-center" style="width: 11%" scope="col">Style</th>
+                <th class="align-middle text-center" style="width: 20%" scope="col" v-i18n="'monsterName'">Monster Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col" v-i18n="'style'">Style</th>
                 <th class="align-middle text-center" style="width: 11%" scope="col">Intimidation</th>
-                <th class="align-middle text-center" style="width: 11%" scope="col">Attack Name</th>
-                <th class="align-middle text-center" style="width: 11%" scope="col">Max Hit</th>
-                <th class="align-middle text-center" style="width: 11%" scope="col">Reduced Max hit</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col" v-i18n="'attackName'">Attack Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col" v-i18n="'maxHit'">Max Hit</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col" v-i18n="'reducedMaxHit'">Reduced Max hit</th>
                 <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
-                    title="Total DR% you need equipped to safely idle this monster with your currently set HP">
-                    <u>DR% Needed</u>
+                    title="Total DR% you need equipped to safely idle this monster with your currently set HP" v-i18n-title="'drNeededTooltip'">
+                    <u v-i18n="'drNeeded'">DR% Needed</u>
                   </div>
                 </th>
                 <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
-                    title="Total HP you need to safely idle this monster with your currently set DR%">
-                    <u>HP Needed</u>
+                    title="Total HP you need to safely idle this monster with your currently set DR%" v-i18n-title="'hpNeededTooltip'">
+                    <u v-i18n="'hpNeeded'">HP Needed</u>
                   </div>
                 </th>
               </tr>
@@ -447,13 +447,13 @@
             <tbody>
               <template v-for="monster in findMonstersForArea('dungeons', this.dungeonChoice)">
                 <tr :class="{idleable : monster.isIdleable}">
-                  <td class="text-center">{{monster.name}}
+                  <td class="text-center">{{monster.name|i18n('monster')}}
                     <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}" src="assets/sleep.png"
-                      title="This monster is able to put you to sleep for +20% damage.">
+                      title="This monster is able to put you to sleep for +20% damage." v-i18n-title="'monsterCanSleep'">
                     <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}" src="assets/stun.png"
-                      title="This monster can stun or freeze you for +30% damage.">
+                      title="This monster can stun or freeze you for +30% damage." v-i18n-title="'monsterCanStun'">
                   </td>
-                  <td class="text-center">{{monster.attackStyle}}</td>
+                  <td class="text-center">{{monster.attackStyle|i18n}}</td>
                   <td class="text-center">{{monster.intimidation}}</td>
                   <td class="text-center"></td>
                   <td class="text-center">{{monster.maxHit}}</td>
@@ -484,29 +484,29 @@
             <select class="custom-select" id="slayerTier" v-model="slayerTier">
               <option selected hidden>Choose Tier</option>
               <option
-                v-for="calculatedTier in this.slayerTiers.map(function (tier){ return calculateInstance(tier, true); })">
-                {{calculatedTier.name}}</option>
+                v-for="calculatedTier in this.slayerTiers.map(function (tier){ return calculateInstance(tier, true); })" :value="calculatedTier.name">
+                {{calculatedTier.name|i18n('slayerTiers')}}</option>
             </select>
           </div>
           <table class="table table-responsive-md table-striped table-dark table-bordered table-hover">
             <thead>
               <tr>
-                <th class="align-middle text-center" style="width: 20%" scope="col">Monster Name</th>
-                <th class="align-middle text-center" style="width: 11%" scope="col">Style</th>
+                <th class="align-middle text-center" style="width: 20%" scope="col" v-i18n="'monsterName'">Monster Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col" v-i18n="'style'">Style</th>
                 <th class="align-middle text-center" style="width: 11%" scope="col">Intimidation</th>
-                <th class="align-middle text-center" style="width: 11%" scope="col">Attack Name</th>
-                <th class="align-middle text-center" style="width: 11%" scope="col">Max Hit</th>
-                <th class="align-middle text-center" style="width: 11%" scope="col">Reduced Max hit</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col" v-i18n="'attackName'">Attack Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col" v-i18n="'maxHit'">Max Hit</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col" v-i18n="'reducedMaxHit'">Reduced Max hit</th>
                 <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
-                    title="Total DR% you need equipped to safely idle this monster with your currently set HP">
-                    <u>DR% Needed</u>
+                    title="Total DR% you need equipped to safely idle this monster with your currently set HP" v-i18n-title="'drNeededTooltip'">
+                    <u v-i18n="'drNeeded'">DR% Needed</u>
                   </div>
                 </th>
                 <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
-                    title="Total HP you need to safely idle this monster with your currently set DR%">
-                    <u>HP Needed</u>
+                    title="Total HP you need to safely idle this monster with your currently set DR%" v-i18n-title="'hpNeededTooltip'">
+                    <u v-i18n="'hpNeeded'">HP Needed</u>
                   </div>
                 </th>
               </tr>
@@ -515,11 +515,11 @@
               <template v-for="monster in findMonstersForArea('slayerTiers', this.slayerTier)">
                 <tr
                   :class="{idleable :  monster.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' || monster.name == 'Greater Skeletal Dragon')}">
-                  <td class="text-center">{{monster.name}}
+                  <td class="text-center">{{monster.name|i18n('monster')}}
                     <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}" src="assets/sleep.png"
-                      title="This monster is able to put you to sleep for +20% damage.">
+                      title="This monster is able to put you to sleep for +20% damage." v-i18n-title="'monsterCanSleep'">
                     <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}" src="assets/stun.png"
-                      title="This monster can stun or freeze you for +30% damage.">
+                      title="This monster can stun or freeze you for +30% damage." v-i18n-title="'monsterCanStun'">
                     <img
                       :class="{statusIcon : monster.name === 'Wicked Greater Dragon' , hide : !(monster.name === 'Wicked Greater Dragon')}"
                       src="assets/warning.png"
@@ -528,7 +528,7 @@
                       :class="{statusIcon : (monster.name == 'Greater Skeletal Dragon') , hide : !(monster.name == 'Greater Skeletal Dragon')}"
                       src="assets/warning.png" title="Unable to determine with certainty due to affliction.">
                   </td>
-                  <td class="text-center">{{monster.attackStyle}}</td>
+                  <td class="text-center">{{monster.attackStyle|i18n}}</td>
                   <td class="text-center">{{monster.intimidation}}</td>
                   <td class="text-center"></td>
                   <td class="text-center">{{monster.maxHit}}</td>
@@ -556,22 +556,22 @@
           <table class="sortable table table-responsive-md table-striped table-dark table-bordered table-hover">
             <thead>
               <tr>
-                <th class="align-middle text-center" style="width: 20%" scope="col">Monster Name</th>
-                <th class="align-middle text-center" style="width: 11%" scope="col">Style</th>
+                <th class="align-middle text-center" style="width: 20%" scope="col" v-i18n="'monsterName'">Monster Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col" v-i18n="'style'">Style</th>
                 <th class="align-middle text-center" style="width: 11%" scope="col">Intimidation</th>
-                <th class="align-middle text-center" style="width: 11%" scope="col">Attack Name</th>
-                <th class="align-middle text-center" style="width: 11%" scope="col">Max Hit</th>
-                <th class="align-middle text-center" style="width: 11%" scope="col">Reduced Max hit</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col" v-i18n="'attackName'">Attack Name</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col" v-i18n="'maxHit'">Max Hit</th>
+                <th class="align-middle text-center" style="width: 11%" scope="col" v-i18n="'reducedMaxHit'">Reduced Max hit</th>
                 <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
-                    title="Total DR% you need equipped to safely idle this monster with your currently set HP">
-                    <u>DR% Needed</u>
+                    title="Total DR% you need equipped to safely idle this monster with your currently set HP" v-i18n-title="'drNeededTooltip'">
+                    <u v-i18n="'drNeeded'">DR% Needed</u>
                   </div>
                 </th>
                 <th class="align-middle text-center" style="width: 11%" scope="col">
                   <div data-toggle="tooltip" data-placement="top"
-                    title="Total HP you need to safely idle this monster with your currently set DR%">
-                    <u>HP Needed</u>
+                    title="Total HP you need to safely idle this monster with your currently set DR%" v-i18n-title="'hpNeededTooltip'">
+                    <u v-i18n="'hpNeeded'">HP Needed</u>
                   </div>
                 </th>
               </tr>
@@ -580,11 +580,11 @@
               <template v-for="monster in findMonstersforEverything()">
                 <tr
                   :class="{idleable :  monster.isIdleable, warning : (monster.name == 'Wicked Greater Dragon' || monster.name == 'Greater Skeletal Dragon')}">
-                  <td class="text-center">{{monster.name}}
+                  <td class="text-center">{{monster.name|i18n('monster')}}
                     <img :class="{statusIcon : monster.canSleep , hide : !monster.canSleep}" src="assets/sleep.png"
-                      title="This monster is able to put you to sleep for +20% damage.">
+                      title="This monster is able to put you to sleep for +20% damage." v-i18n-title="'monsterCanSleep'">
                     <img :class="{statusIcon : monster.canStun , hide : !monster.canStun}" src="assets/stun.png"
-                      title="This monster can stun or freeze you for +30% damage.">
+                      title="This monster can stun or freeze you for +30% damage." v-i18n-title="'monsterCanStun'">
                     <img
                       :class="{statusIcon : monster.name === 'Wicked Greater Dragon' , hide : !(monster.name === 'Wicked Greater Dragon')}"
                       src="assets/warning.png"
@@ -593,7 +593,7 @@
                       :class="{statusIcon : (monster.name == 'Greater Skeletal Dragon') , hide : !(monster.name == 'Greater Skeletal Dragon')}"
                       src="assets/warning.png" title="Unable to determine with certainty due to affliction.">
                   </td>
-                  <td class="text-center">{{monster.attackStyle}}</td>
+                  <td class="text-center">{{monster.attackStyle|i18n}}</td>
                   <td class="text-center">{{monster.intimidation}}</td>
                   <td class="text-center"></td>
                   <td class="text-center">{{monster.maxHit}}</td>
@@ -1223,8 +1223,8 @@
 
     filters: {
       i18n(value, key) {
-        if (i18nData && i18nData[localStorage.language] && i18nData[localStorage.language][key]) {
-          return i18nData[localStorage.language][key]
+        if (i18nData && i18nData[localStorage.language] && i18nData[localStorage.language][`${key?key+'-':''}${value}`]) {
+          return i18nData[localStorage.language][`${key?key+'-':''}${value}`]
         }
         return value
       },
