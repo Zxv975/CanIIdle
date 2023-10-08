@@ -45,15 +45,6 @@
       <button id="copyLink" type="button" class="btn btn-secondary" @click="getShareURL()" v-i18n="'shareButtonText'">Copy shareable link to
         Clipboard</button>
     </p>
-    <div class="input-group language-div">
-      <div class="input-group-prepend">
-        <label class="input-group-text" for="language">Language:</label>
-      </div>
-      <select class="custom-select" id="language" v-model="language">
-        <option>English</option>
-        <option>简体中文</option>
-      </select>
-    </div>
     <div id="content" class="container">
       <div class="row">
         <div class="col-lg-3 col-md-4 col-sm-6 my-2">
@@ -641,6 +632,16 @@
     <h5><a href="https://drboomtown.github.io/">Can I Idle This? (by Dr BoomTown)</a></h5>
     <h5><a href="https://sublimedisciple.github.io/idle-slayer.html">Can I Idle This? (by Sublimed Disciple)</a></h5>
     <h5><a href="https://silberdrachi.github.io/CanIIdle/">Can I Idle Melvor? (by Silberdrachi)</a></h5>
+    <br>
+    <div class="input-group language-div">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="language">Language:</label>
+      </div>
+      <select class="custom-select" id="language" v-model="language">
+        <option>English</option>
+        <option>简体中文</option>
+      </select>
+    </div>
     <br>
     <p v-i18n="'desc7'">"Melvor Idle" is a trademark of Games by Malcs Pty Ltd and is used with the permission of Games by Malcs.</p>
   </div>
