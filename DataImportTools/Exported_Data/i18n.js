@@ -61,6 +61,10 @@ export const i18nData = {
     "slayerTiers-Easy": "简单",
     "slayerTiers-Normal": "普通",
     "slayerTiers-Hard": "困难",
+    "slayerTiers-Elite": "精英",
+    "slayerTiers-Master": "大师",
+    "slayerTiers-Legendary": "传奇",
+    "slayerTiers-Mythical": "神话",
 
     "monsterCanSleep": "这个怪物可以让你进入睡眠状态，造成额外20%的伤害",
     "monsterCanStun": "这个怪物可以让你进入眩晕或冻结状态，造成额外30%的伤害",
