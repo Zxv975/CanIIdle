@@ -544,6 +544,12 @@
           </table>
         </div>
         <div id="allMonsters" class="tab-pane fade">
+          <div class="input-group my-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="allMonsterSearch">Search Monsters</label>
+            </div>
+            <input id="allMonsterSearch" type="text" class="form-control" v-model="allMonsterSearch" />
+          </div>
           <table class="sortable table table-responsive-md table-striped table-dark table-bordered table-hover">
             <thead>
               <tr>
@@ -675,6 +681,7 @@
         combatChoice: "Golbin Village",
         slayerChoice: "Penumbra",
         slayerTier: "Easy",
+        allMonsterSearch: "",
         slayerAreaNegation: 0,
         dungeons: dungeonData,
         monsters: monsterData,
@@ -1033,10 +1040,9 @@
 
       findMonstersforEverything() {
         let monsterInformation = [];
-        this.monsters.forEach(element => {
-          monsterInformation.push(this.calculateMonster(element, false));
-        });
-        return monsterInformation;
+        return this.monsters.filter(element => {
+          return element.name.toLowerCase().includes(this.allMonsterSearch.toLowerCase())
+        }).map(element => this.calculateMonster(element, false))
       },
     },
     computed: {
